@@ -28,7 +28,7 @@ const Register = () => {
         answer,
       });
       if (res && res.data.success) {
-        toast.success("Register Successfully, please login");
+        toast.success("Register Successfully, Please Login");
         navigate("/login");
       } else {
         toast.error(res.data.message);
@@ -118,7 +118,7 @@ const Register = () => {
               onChange={(e) => setAnswer(e.target.value)}
               className="form-control"
               id="exampleInputanswer1"
-              placeholder="What is Your Favorite sports"
+              placeholder="What is Your Favorite Sports"
               required
             />
           </div>

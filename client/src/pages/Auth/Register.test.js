@@ -78,7 +78,7 @@ describe("Register Component", () => {
     fireEvent.change(getByPlaceholderText("Enter Your DOB"), {
       target: { value: "2000-01-01" },
     });
-    fireEvent.change(getByPlaceholderText("What is Your Favorite sports"), {
+    fireEvent.change(getByPlaceholderText("What is Your Favorite Sports"), {
       target: { value: "Football" },
     });
 
@@ -86,7 +86,7 @@ describe("Register Component", () => {
 
     await waitFor(() => expect(axios.post).toHaveBeenCalled());
     expect(toast.success).toHaveBeenCalledWith(
-      "Register Successfully, please login"
+      "Register Successfully, Please Login"
     );
   });
 
@@ -119,7 +119,7 @@ describe("Register Component", () => {
     fireEvent.change(getByPlaceholderText("Enter Your DOB"), {
       target: { value: "2000-01-01" },
     });
-    fireEvent.change(getByPlaceholderText("What is Your Favorite sports"), {
+    fireEvent.change(getByPlaceholderText("What is Your Favorite Sports"), {
       target: { value: "Football" },
     });
 

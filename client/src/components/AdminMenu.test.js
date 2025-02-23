@@ -4,10 +4,6 @@ import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import AdminMenu from "./AdminMenu";
 
-const links = [
-    {}
-];
-
 describe("AdminMenu Component", () => {
     beforeEach(() => {
         jest.clearAllMocks();

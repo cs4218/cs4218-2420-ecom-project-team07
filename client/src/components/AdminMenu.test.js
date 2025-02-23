@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import AdminMenu from "./AdminMenu";
@@ -40,6 +40,7 @@ describe("AdminMenu Component", () => {
         links.forEach((link) => {
             expect(getByText(link.text)).toBeInTheDocument();
             expect(getByText(link.text)).toHaveAttribute("href", link.path);
+            fireEvent.click(getByText(link.text));
         });
     });
 

@@ -5,7 +5,6 @@ import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { toast } from "react-hot-toast";
 import Products from "./Products";
-import UpdateProduct from "./UpdateProduct";
 
 jest.mock("axios");
 jest.mock("react-hot-toast");

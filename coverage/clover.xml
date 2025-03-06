@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741259810379" clover="3.2.0">
-  <project timestamp="1741259810379" name="All files">
-    <metrics statements="577" coveredstatements="83" conditionals="124" coveredconditionals="11" methods="167" coveredmethods="24" elements="868" coveredelements="118" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
+<coverage generated="1741264244442" clover="3.2.0">
+  <project timestamp="1741264244442" name="All files">
+    <metrics statements="577" coveredstatements="90" conditionals="124" coveredconditionals="11" methods="167" coveredmethods="27" elements="868" coveredelements="128" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="13" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="4"/>
       <file name="AdminMenu.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/AdminMenu.js">
@@ -146,18 +146,18 @@
       </file>
     </package>
     <package name="hooks">
-      <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="useCategory.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/hooks/useCategory.js">
-        <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
       </file>
     </package>
     <package name="pages">
@@ -424,7 +424,7 @@
       </file>
     </package>
     <package name="pages.admin">
-      <metrics statements="209" coveredstatements="19" conditionals="34" coveredconditionals="0" methods="51" coveredmethods="6"/>
+      <metrics statements="209" coveredstatements="17" conditionals="34" coveredconditionals="0" methods="51" coveredmethods="6"/>
       <file name="AdminDashboard.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/admin/AdminDashboard.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
@@ -577,9 +577,9 @@
         <line num="35" count="12" type="stmt"/>
       </file>
       <file name="UpdateProduct.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/admin/UpdateProduct.js">
-        <metrics statements="71" coveredstatements="2" conditionals="14" coveredconditionals="0" methods="15" coveredmethods="0"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
+        <metrics statements="71" coveredstatements="0" conditionals="14" coveredconditionals="0" methods="15" coveredmethods="0"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>

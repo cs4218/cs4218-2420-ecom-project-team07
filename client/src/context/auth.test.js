@@ -27,10 +27,10 @@ describe("auth Component", () => {
         jest.clearAllMocks();
     });
 
-    it("should provide dafault auth state", () => {
+    it("should provide default auth state", () => {
         const { result } = renderHook(() => useAuth(), { wrapper: AuthProvider });
 
-        expect(result.current[0]).toEqual({ user: null, token: ""});
+        expect(result.current[0]).toEqual({ user: null, token: "" });
     });
 
     it("should update auth statae when setAuth is called", async () => {

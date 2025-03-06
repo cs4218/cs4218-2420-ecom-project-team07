@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741273872896" clover="3.2.0">
-  <project timestamp="1741273872896" name="All files">
-    <metrics statements="577" coveredstatements="108" conditionals="124" coveredconditionals="15" methods="167" coveredmethods="33" elements="868" coveredelements="156" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
+<coverage generated="1741274334802" clover="3.2.0">
+  <project timestamp="1741274334802" name="All files">
+    <metrics statements="577" coveredstatements="113" conditionals="124" coveredconditionals="15" methods="167" coveredmethods="35" elements="868" coveredelements="163" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="13" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="4"/>
       <file name="AdminMenu.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/AdminMenu.js">
@@ -110,7 +110,7 @@
       </file>
     </package>
     <package name="context">
-      <metrics statements="24" coveredstatements="11" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="3"/>
+      <metrics statements="24" coveredstatements="16" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="5"/>
       <file name="auth.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/context/auth.js">
         <metrics statements="11" coveredstatements="11" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="5" count="1" type="stmt"/>
@@ -127,22 +127,22 @@
       </file>
       <file name="cart.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/context/cart.js">
         <metrics statements="8" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
       </file>
       <file name="search.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/context/search.js">
-        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
       </file>
     </package>
     <package name="hooks">

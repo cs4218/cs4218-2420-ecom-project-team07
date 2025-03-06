@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741274823908" clover="3.2.0">
-  <project timestamp="1741274823908" name="All files">
-    <metrics statements="577" coveredstatements="119" conditionals="124" coveredconditionals="15" methods="167" coveredmethods="38" elements="868" coveredelements="172" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
+<coverage generated="1741275029590" clover="3.2.0">
+  <project timestamp="1741275029590" name="All files">
+    <metrics statements="577" coveredstatements="121" conditionals="124" coveredconditionals="15" methods="167" coveredmethods="39" elements="868" coveredelements="175" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="13" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="4"/>
       <file name="AdminMenu.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/AdminMenu.js">
@@ -161,7 +161,7 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="172" coveredstatements="10" conditionals="49" coveredconditionals="0" methods="54" coveredmethods="5"/>
+      <metrics statements="172" coveredstatements="12" conditionals="49" coveredconditionals="0" methods="54" coveredmethods="6"/>
       <file name="About.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/About.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="1" type="stmt"/>
@@ -324,9 +324,9 @@
         <line num="206" count="0" type="stmt"/>
       </file>
       <file name="Pagenotfound.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/Pagenotfound.js">
-        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
       </file>
       <file name="Policy.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/Policy.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>

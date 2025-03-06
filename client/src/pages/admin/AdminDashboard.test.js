@@ -19,20 +19,20 @@ jest.mock("../../components/AdminMenu", () =>
         <div data-testid="admin-menu">Admin Menu</div>
 ));
 
-describe("AdminDashboard Component", () => {
-    const mockAuth = {
-        user: {
-            name: "CS 4218 Test Account",
-            email: "cs4218@test.com",
-            phone: "81234567"
-        }
-    };
+const mockAuth = {
+    user: {
+        name: "CS 4218 Test Account",
+        email: "cs4218@test.com",
+        phone: "81234567"
+    }
+};
 
+describe("AdminDashboard Component", () => {
     beforeEach(() => {
         useAuth.mockReturnValue([mockAuth]);
     });
 
-    it("renders admin dashboard correctly", () => {
+    it("should render admin dashboard correctly", () => {
         const { getByTestId, getByRole, getByText } = render(
             <MemoryRouter>
                 <AdminDashboard />

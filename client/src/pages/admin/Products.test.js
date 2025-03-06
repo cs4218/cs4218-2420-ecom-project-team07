@@ -163,7 +163,7 @@ describe("Products Component", () => {
         );
             
         await waitFor(() => {
-            const links = getAllByRole("link").filter(link => link.classList.contains("product-link"));
+                const links = getAllByRole("link").filter(link => link.classList.contains("product-link"));
                 expect(links.length).toBe(mockProducts.length);
                 mockProducts.forEach((product, index) => {
                     expect(links[index]).toHaveAttribute("href", `/dashboard/admin/product/${product.slug}`);

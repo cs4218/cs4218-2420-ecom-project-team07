@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741264244442" clover="3.2.0">
-  <project timestamp="1741264244442" name="All files">
-    <metrics statements="577" coveredstatements="90" conditionals="124" coveredconditionals="11" methods="167" coveredmethods="27" elements="868" coveredelements="128" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
+<coverage generated="1741267222063" clover="3.2.0">
+  <project timestamp="1741267222063" name="All files">
+    <metrics statements="577" coveredstatements="94" conditionals="124" coveredconditionals="11" methods="167" coveredmethods="29" elements="868" coveredelements="134" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="13" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="4"/>
       <file name="AdminMenu.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/AdminMenu.js">
@@ -161,7 +161,7 @@
       </file>
     </package>
     <package name="pages">
-      <metrics statements="172" coveredstatements="0" conditionals="49" coveredconditionals="0" methods="54" coveredmethods="0"/>
+      <metrics statements="172" coveredstatements="4" conditionals="49" coveredconditionals="0" methods="54" coveredmethods="2"/>
       <file name="About.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/About.js">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="4" count="0" type="stmt"/>
@@ -219,11 +219,11 @@
         <line num="182" count="0" type="stmt"/>
       </file>
       <file name="Categories.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/Categories.js">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
       </file>
       <file name="CategoryProduct.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/CategoryProduct.js">
         <metrics statements="16" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>

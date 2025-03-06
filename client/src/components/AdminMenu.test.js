@@ -8,7 +8,8 @@ const mockLinks = [
     { text: "Create Category", path: "/dashboard/admin/create-category" },
     { text: "Create Product", path: "/dashboard/admin/create-product" },
     { text: "Products", path: "/dashboard/admin/products" },
-    { text: "Orders", path: "/dashboard/admin/orders" }
+    { text: "Orders", path: "/dashboard/admin/orders" },
+    { text: "Users", path: "/dashboard/admin/users" },
 ];
 
 describe("AdminMenu Component", () => {
@@ -38,15 +39,5 @@ describe("AdminMenu Component", () => {
             expect(getByText(link.text)).toHaveAttribute("href", link.path);
             fireEvent.click(getByText(link.text));
         });
-    });
-
-    it("should not render user menu", () => {
-        const { queryByText } = render(
-            <MemoryRouter>
-                <AdminMenu />
-            </MemoryRouter>
-        );
-
-        expect(queryByText("Users")).not.toBeInTheDocument();
     });
 });

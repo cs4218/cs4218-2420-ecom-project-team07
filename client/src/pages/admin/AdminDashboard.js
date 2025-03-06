@@ -2,6 +2,7 @@ import React from "react";
 import AdminMenu from "../../components/AdminMenu";
 import Layout from "./../../components/Layout";
 import { useAuth } from "../../context/auth";
+
 const AdminDashboard = () => {
   const [auth] = useAuth();
   return (

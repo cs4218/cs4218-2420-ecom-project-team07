@@ -33,12 +33,12 @@ describe("auth Component", () => {
         expect(result.current[0]).toEqual({ user: null, token: "" });
     });
 
-    it("should update auth statae when setAuth is called", async () => {
+    it("should update auth state when setAuth is called", async () => {
         const { result } = renderHook(() => useAuth(), { wrapper: AuthProvider });
 
         act(() => result.current[1]({ user: mockUser, token: mockToken }));
 
-        expect(result.current[0]).toEqual({ user: mockUser, token: mockToken });
+        await waitFor(() => expect(result.current[0]).toEqual({ user: mockUser, token: mockToken }));
     });
 
     it("should update axios Authorization header", async () => {
@@ -46,7 +46,7 @@ describe("auth Component", () => {
 
         act(() => result.current[1]({ user: mockUser, token: mockToken }));
 
-        expect(axios.defaults.headers.common["Authorization"]).toBe(mockToken);
+        await waitFor(() => expect(axios.defaults.headers.common["Authorization"]).toBe(mockToken));
     });
 
     it("should load auth data from localStorage and update state", async () => {

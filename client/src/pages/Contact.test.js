@@ -9,18 +9,30 @@ jest.mock("../components/Layout", () =>
         <div data-testid="layout"><h1>{ title }</h1>{ children }</div>
 ));
 
+jest.mock("react-icons/bi", () => ({
+    BiMailSend: () => <svg data-testid="MailSend-icon" />,
+    BiPhoneCall: () => <svg data-testid="PhoneCall-icon" />,
+    BiSupport: () => <svg data-testid="Support-icon" />
+}));
+
 describe("Contact Component", () => {
     it("should render Contact page correctly", () => {
-        const { getByText } = render(
+        const { getByTestId, getByText } = render(
             <MemoryRouter>
                 <Contact />
             </MemoryRouter>
         );
 
+        expect(getByTestId("layout")).toBeInTheDocument();
         expect(getByText("CONTACT US")).toBeInTheDocument();
         expect(getByText("For any query or info about product, feel free to call anytime. We are available 24X7.")).toBeInTheDocument();
-        expect(getByText("www.help@ecommerceapp.com")).toBeInTheDocument();
-        expect(getByText("012-3456789")).toBeInTheDocument();
-        expect(getByText("1800-0000-0000 (toll free)")).toBeInTheDocument();
+        
+        expect(getByTestId("MailSend")).toHaveTextContent("www.help@ecommerceapp.com");
+        expect(getByTestId("PhoneCall")).toHaveTextContent("012-3456789");
+        expect(getByTestId("Support")).toHaveTextContent("1800-0000-0000 (toll free)");
+        
+        expect(getByTestId("MailSend-icon")).toBeInTheDocument();
+        expect(getByTestId("PhoneCall-icon")).toBeInTheDocument();
+        expect(getByTestId("Support-icon")).toBeInTheDocument();
     });
 });

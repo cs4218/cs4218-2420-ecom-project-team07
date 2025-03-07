@@ -19,13 +19,13 @@ const Contact = () => {
             For any query or info about product, feel free to call anytime. We are
             available 24X7.  
           </p>
-          <p className="mt-3">
+          <p className="mt-3" data-testid="MailSend">
             <BiMailSend /> : www.help@ecommerceapp.com
           </p>
-          <p className="mt-3">
+          <p className="mt-3" data-testid="PhoneCall">
             <BiPhoneCall /> : 012-3456789
           </p>
-          <p className="mt-3">
+          <p className="mt-3" data-testid="Support">
             <BiSupport /> : 1800-0000-0000 (toll free)
           </p>
         </div>

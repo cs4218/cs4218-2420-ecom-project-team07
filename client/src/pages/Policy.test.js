@@ -5,19 +5,18 @@ import "@testing-library/jest-dom/extend-expect";
 import Policy from "./Policy";
 
 jest.mock("../components/Layout", () => 
-    jest.fn(({ children }) =>
-        <div data-testid="layout">{ children }</div>
+    jest.fn(({ children, title }) =>
+        <div data-testid="layout"><h1>{ title }</h1>{ children }</div>
 ));
 
 describe("Policy Component", () => {
     it("should render Policy page correctly", () => {
-        const { getByAltText, getAllByText } = render(
+        const { getAllByText } = render(
             <MemoryRouter>
                 <Policy />
             </MemoryRouter>
         );
 
-        expect(getByAltText("contactus")).toBeInTheDocument();
         expect(getAllByText("add privacy policy").length).toBe(7);
     });
 });

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741331927261" clover="3.2.0">
-  <project timestamp="1741331927261" name="All files">
+<coverage generated="1741332913766" clover="3.2.0">
+  <project timestamp="1741332913766" name="All files">
     <metrics statements="577" coveredstatements="130" conditionals="124" coveredconditionals="17" methods="167" coveredmethods="43" elements="868" coveredelements="190" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="15" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="5"/>
@@ -360,9 +360,9 @@
       <file name="Search.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/Search.js">
         <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="6" count="4" type="stmt"/>
-        <line num="7" count="4" type="stmt"/>
-        <line num="19" count="12" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
       </file>
     </package>
     <package name="pages.Auth">

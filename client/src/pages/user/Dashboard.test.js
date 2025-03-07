@@ -23,7 +23,7 @@ const mockAuth = {
     user: {
         name: "Daniel",
         email: "daniel@test.com",
-        phone: "12341234"
+        address: "123456"
     }
 };
 
@@ -44,6 +44,6 @@ describe("Dashboard Component", () => {
 
         expect(getByText((content) => content.includes("Daniel"))).toBeInTheDocument();
         expect(getByText((content) => content.includes("daniel@test.com"))).toBeInTheDocument();
-        expect(getByText((content) => content.includes("12341234"))).toBeInTheDocument();
+        expect(getByText((content) => content.includes("123456"))).toBeInTheDocument();
     });
 });

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741337453451" clover="3.2.0">
-  <project timestamp="1741337453451" name="All files">
-    <metrics statements="577" coveredstatements="138" conditionals="124" coveredconditionals="19" methods="167" coveredmethods="46" elements="868" coveredelements="203" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
+<coverage generated="1741339338333" clover="3.2.0">
+  <project timestamp="1741339338333" name="All files">
+    <metrics statements="577" coveredstatements="148" conditionals="124" coveredconditionals="25" methods="167" coveredmethods="49" elements="868" coveredelements="222" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="15" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="5"/>
       <file name="AdminMenu.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/AdminMenu.js">
@@ -81,19 +81,19 @@
       </file>
     </package>
     <package name="components.Routes">
-      <metrics statements="20" coveredstatements="0" conditionals="12" coveredconditionals="0" methods="6" coveredmethods="0"/>
+      <metrics statements="20" coveredstatements="10" conditionals="12" coveredconditionals="6" methods="6" coveredmethods="3"/>
       <file name="AdminRoute.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/Routes/AdminRoute.js">
-        <metrics statements="10" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="10" coveredstatements="10" conditionals="6" coveredconditionals="6" methods="3" coveredmethods="3"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="5" type="cond" truecount="2" falsecount="0"/>
       </file>
       <file name="Private.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/Routes/Private.js">
         <metrics statements="10" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>

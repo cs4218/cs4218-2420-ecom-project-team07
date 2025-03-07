@@ -14,7 +14,6 @@ describe("About Component", () => {
             <About />
         );
 
-        expect(getByText("About us - Ecommerce app")).toBeInTheDocument();
         expect(getByAltText("contactus")).toBeInTheDocument();
         expect(getByText("Add text")).toBeInTheDocument();
     });

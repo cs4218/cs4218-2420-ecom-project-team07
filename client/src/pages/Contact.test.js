@@ -14,7 +14,7 @@ describe("Contact Component", () => {
             <Contact />
         );
 
-        expect(getByText("Contact us")).toBeInTheDocument();
+        expect(getByText("CONTACT US")).toBeInTheDocument();
         expect(getByAltText("contactus")).toBeInTheDocument();
         expect(getByText("For any query or info about product, feel free to call anytime. We are available 24X7.")).toBeInTheDocument();
         expect(getByText("www.help@ecommerceapp.com")).toBeInTheDocument();

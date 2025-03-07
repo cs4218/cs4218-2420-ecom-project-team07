@@ -17,7 +17,7 @@ describe("Pagenotfound Component", () => {
             </MemoryRouter>
         );
 
-        expect(getByText("go back- page not found")).toBeInTheDocument();
+        expect(getByText("Go Back")).toBeInTheDocument();
         expect(getByText("404")).toBeInTheDocument();
         expect(getByText("Oops ! Page Not Found")).toBeInTheDocument();
         

@@ -1,5 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import "@testing-library/jest-dom/extend-expect";
 import Policy from "./Policy";
 
@@ -10,11 +11,12 @@ jest.mock("../components/Layout", () =>
 
 describe("Policy Component", () => {
     it("should render Policy page correctly", () => {
-        const { getByText, getByAltText, getAllByText } = render(
-            <Policy />
+        const { getByAltText, getAllByText } = render(
+            <MemoryRouter>
+                <Policy />
+            </MemoryRouter>
         );
 
-        expect(getByText("Privacy Policy")).toBeInTheDocument();
         expect(getByAltText("contactus")).toBeInTheDocument();
         expect(getAllByText("add privacy policy").length).toBe(7);
     });

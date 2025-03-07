@@ -97,7 +97,7 @@ describe("Register Component", () => {
         message: "User already exists"
       }
     })
-    .mockRejectedValueOnce(new Error("Server error"));
+    .mockRejectedValueOnce({ message: "Server error" });
 
     const { getByText, getByPlaceholderText } = render(
       <MemoryRouter initialEntries={["/register"]}>

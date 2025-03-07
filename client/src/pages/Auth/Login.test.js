@@ -141,7 +141,7 @@ describe("Login Component", () => {
         message: "Invalid credentials"
       }
     })
-    .mockRejectedValueOnce(new Error("Server error"));
+    .mockRejectedValueOnce({ message: "Server error" });
 
     const { getByPlaceholderText, getByText } = render(
       <MemoryRouter initialEntries={["/login"]}>

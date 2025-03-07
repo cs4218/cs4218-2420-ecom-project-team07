@@ -49,10 +49,10 @@ describe("useCategory Hook", () => {
   });
 
   it("should display an error message on failed API call", async () => {
-    axios.get.mockRejectedValue(new Error("API Error"));
+    axios.get.mockRejectedValue({ message: "API error" });
 
     renderHook(() => useCategory());
 
-    await waitFor(() => expect(console.log).toHaveBeenCalledWith(new Error("API Error")));
+    await waitFor(() => expect(console.log).toHaveBeenCalledWith({ message: "API error" }));
   });
 });

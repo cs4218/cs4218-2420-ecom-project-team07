@@ -23,7 +23,8 @@ const mockAuth = {
     user: {
         name: "CS 4218 Test Account",
         email: "cs4218@test.com",
-        phone: "81234567"
+        phone: "81234567",
+        token: "valid"
     }
 };
 

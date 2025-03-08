@@ -21,9 +21,10 @@ jest.mock("../../context/auth", () => ({
 
 const mockAuth = {
     user: {
-        name: "Daniel",
-        email: "daniel@test.com",
-        address: "123456"
+        name: "Test User",
+        email: "user@test.com",
+        address: "123456",
+        token: "valid"
     }
 };
 
@@ -42,8 +43,8 @@ describe("Dashboard Component", () => {
         expect(getByTestId("layout")).toBeInTheDocument();
         expect(getByTestId("user-menu")).toBeInTheDocument();
 
-        expect(getByText((content) => content.includes("Daniel"))).toBeInTheDocument();
-        expect(getByText((content) => content.includes("daniel@test.com"))).toBeInTheDocument();
+        expect(getByText((content) => content.includes("Test User"))).toBeInTheDocument();
+        expect(getByText((content) => content.includes("user@test.com"))).toBeInTheDocument();
         expect(getByText((content) => content.includes("123456"))).toBeInTheDocument();
     });
 });

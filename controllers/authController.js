@@ -56,7 +56,7 @@ export const registerController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Errro in Registeration",
+      message: "Error in Registeration",
       error,
     });
   }
@@ -168,8 +168,25 @@ export const testController = (req, res) => {
 export const updateProfileController = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;
+    // Check if user id exists
+    if (!req.user || !req.user._id) {
+      return res.status(400).send({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+    
     const user = await userModel.findById(req.user._id);
-    //password
+    
+    // Check if user exists in database
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found in database",
+      });
+    }
+    
+    //password validation
     if (password && password.length < 6) {
       return res.json({ error: "Passsword is required and 6 character long" });
     }
@@ -193,7 +210,7 @@ export const updateProfileController = async (req, res) => {
     console.log(error);
     res.status(400).send({
       success: false,
-      message: "Error WHile Update profile",
+      message: "Error While Update profile",
       error,
     });
   }
@@ -202,6 +219,14 @@ export const updateProfileController = async (req, res) => {
 //orders
 export const getOrdersController = async (req, res) => {
   try {
+    // Check if user exists and has ID
+    if (!req.user || !req.user._id) {
+      return res.status(400).send({
+        success: false,
+        message: "User ID is required",
+      });
+    }
+    
     const orders = await orderModel
       .find({ buyer: req.user._id })
       .populate("products", "-photo")
@@ -211,25 +236,42 @@ export const getOrdersController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error WHile Geting Orders",
+      message: "Error While Geting Orders",
       error,
     });
   }
 };
+
 //orders
 export const getAllOrdersController = async (req, res) => {
   try {
+    // Check if user exists
+    if (!req.user) {
+      return res.status(400).send({
+        success: false,
+        message: "Unauthorized. User not logged in.",
+      });
+    }
+
+    // Check if user exists and has admin role
+    if (!req.user.role || req.user.role !== 1) {
+      return res.status(403).send({
+        success: false,
+        message: "Access denied. Admin access required.",
+      });
+    }
+
     const orders = await orderModel
       .find({})
       .populate("products", "-photo")
       .populate("buyer", "name")
-      .sort({ createdAt: "-1" });
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error WHile Geting Orders",
+      message: "Error While Getting Orders",
       error,
     });
   }
@@ -240,6 +282,40 @@ export const orderStatusController = async (req, res) => {
   try {
     const { orderId } = req.params;
     const { status } = req.body;
+    
+    // Validate required parameters
+    if (!orderId) {
+      return res.status(400).send({
+        success: false,
+        message: "Order ID is required",
+      });
+    }
+    
+    if (!status) {
+      return res.status(400).send({
+        success: false,
+        message: "Status is required",
+      });
+    }
+    
+    // Validate status against allowed values
+    const allowedStatuses = ["Not Process", "Processing", "Shipped", "deliverd", "cancel"];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).send({
+        success: false,
+        message: `Invalid status. Allowed values are: ${allowedStatuses.join(', ')}`
+      });
+    }
+    
+    // Find order first to check if it exists
+    const existingOrder = await orderModel.findById(orderId);
+    if (!existingOrder) {
+      return res.status(404).send({
+        success: false,
+        message: "Order not found",
+      });
+    }
+    
     const orders = await orderModel.findByIdAndUpdate(
       orderId,
       { status },

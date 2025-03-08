@@ -72,6 +72,16 @@ describe('Orders Component', () => {
     axios.get.mockResolvedValue({ data: mockOrders });
   });
 
+  test('does not fetch orders when auth token is not present', async () => {
+    require('../../context/auth').useAuth.mockReturnValue([{ user: {} }, mockSetAuth]);
+    
+    await act(async () => {
+      render(<Orders />);
+    });
+    
+    expect(axios.get).not.toHaveBeenCalled();
+  });
+
   test('renders Orders component with title', async () => {
     // Wrap rendering process with act
     await act(async () => {
@@ -106,7 +116,8 @@ describe('Orders Component', () => {
     
     // Check product information
     expect(screen.getByText('Test Product')).toBeInTheDocument();
-    expect(screen.getByText(/This is a test product descrip/)).toBeInTheDocument();
+    expect(screen.getByText('This is a test product descrip')).toBeInTheDocument();
+    expect(screen.queryByText('This is a test product description that is longer than 30 characters')).not.toBeInTheDocument();
     expect(screen.getByText(/Price : 99.99/)).toBeInTheDocument();
     
     expect(screen.getByText('Another Product')).toBeInTheDocument();
@@ -118,14 +129,43 @@ describe('Orders Component', () => {
     expect(screen.getByText(/Price : 29.99/)).toBeInTheDocument();
   });
 
-  test('does not fetch orders when auth token is not present', async () => {
-    require('../../context/auth').useAuth.mockReturnValue([{ user: {} }, mockSetAuth]);
-    
+  test('fetches and displays orders when order._id is not present', async () => {
+    const mockOrdersWithNoId = mockOrders.map(order => ({ ...order, _id: undefined }));
+    axios.get.mockResolvedValue({ data: mockOrdersWithNoId });
+
     await act(async () => {
       render(<Orders />);
     });
+
+    // Verify API call
+    expect(axios.get).toHaveBeenCalledWith('/api/v1/auth/orders');
     
-    expect(axios.get).not.toHaveBeenCalled();
+    // Check first order information
+    expect(screen.getByText('Processing')).toBeInTheDocument();
+    expect(screen.getByText('Test User')).toBeInTheDocument();
+    expect(screen.getByText('Success')).toBeInTheDocument();
+    // Use data-testid to uniquely identify elements
+    expect(screen.getByTestId('order-number-0')).toHaveTextContent('1');
+    
+    // Check second order information
+    expect(screen.getByText('Completed')).toBeInTheDocument();
+    expect(screen.getByText('Another User')).toBeInTheDocument();
+    expect(screen.getByText('Failed')).toBeInTheDocument();
+    expect(screen.getByTestId('order-number-1')).toHaveTextContent('2');
+    
+    // Check product information
+    expect(screen.getByText('Test Product')).toBeInTheDocument();
+    expect(screen.getByText('This is a test product descrip')).toBeInTheDocument();
+    expect(screen.queryByText('This is a test product description that is longer than 30 characters')).not.toBeInTheDocument();
+    expect(screen.getByText(/Price : 99.99/)).toBeInTheDocument();
+    
+    expect(screen.getByText('Another Product')).toBeInTheDocument();
+    expect(screen.getByText('Short desc')).toBeInTheDocument();
+    expect(screen.getByText(/Price : 49.99/)).toBeInTheDocument();
+    
+    expect(screen.getByText('Third Product')).toBeInTheDocument();
+    expect(screen.getByText('Third product description')).toBeInTheDocument();
+    expect(screen.getByText(/Price : 29.99/)).toBeInTheDocument();
   });
 
   test('handles API error gracefully', async () => {

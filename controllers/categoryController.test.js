@@ -13,72 +13,10 @@ describe("createCategoryController Tests", () => {
     jest.clearAllMocks();
   });
 
-  test("should return 400 when request body is missing", async () => {
-    // Prepare mock request and response objects
-    const req = {
-        user: { role: 1 }
-    };
-    const res = {
-      status: jest.fn().mockReturnThis(),
-      send: jest.fn()
-    };
-
-    // Call the controller function
-    await createCategoryController(req, res);
-
-    // Verify results
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.send).toHaveBeenCalledWith({ message: "Request body is required" });
-  });
-
-  test("should return 403 when user is missing", async () => {
-    // Prepare mock request and response objects
-    const req = {
-      body: {}
-    };
-    const res = {
-      status: jest.fn().mockReturnThis(),
-      send: jest.fn()
-    };
-
-    // Call the controller function
-    await createCategoryController(req, res);
-
-    // Verify results   
-    expect(res.status).toHaveBeenCalledWith(403);
-    expect(res.send).toHaveBeenCalledWith({ 
-        success: false,
-        message: "Unauthorized: Admin access required" 
-    });
-  });
-
-  test("should return 403 when user is not admin", async () => {
-    // Prepare mock request and response objects
-    const req = {
-      body: {},
-      user: { role: 0 }
-    };
-    const res = {
-      status: jest.fn().mockReturnThis(),
-      send: jest.fn()
-    };
-
-    // Call the controller function
-    await createCategoryController(req, res);
-
-    // Verify results
-    expect(res.status).toHaveBeenCalledWith(403);
-    expect(res.send).toHaveBeenCalledWith({ 
-        success: false,
-        message: "Unauthorized: Admin access required" 
-    });
-  });
-
   test("should return 401 when name is not provided", async () => {
     // Prepare mock request and response objects
     const req = {
-      body: {},
-      user: { role: 1 }
+      body: {}
     };
     const res = {
       status: jest.fn().mockReturnThis(),
@@ -99,8 +37,7 @@ describe("createCategoryController Tests", () => {
   test("should return 200 when category already exists", async () => {
     // Prepare mock request and response objects
     const req = {
-      body: { name: "Test Category" },
-      user: { role: 1 }
+      body: { name: "Test Category" }
     };
     const res = {
       status: jest.fn().mockReturnThis(),
@@ -125,8 +62,7 @@ describe("createCategoryController Tests", () => {
   test("should create a new category and return 201", async () => {
     // Prepare mock request and response objects
     const req = {
-      body: { name: "New Category" },
-      user: { role: 1 }
+      body: { name: "New Category" }
     };
     const res = {
       status: jest.fn().mockReturnThis(),
@@ -173,8 +109,7 @@ describe("createCategoryController Tests", () => {
   test("should return 500 when an error occurs", async () => {
     // Prepare mock request and response objects
     const req = {
-      body: { name: "Error Category" },
-      user: { role: 1 }
+      body: { name: "Error Category" }
     };
     const res = {
       status: jest.fn().mockReturnThis(),
@@ -208,102 +143,12 @@ describe("updateCategoryController Tests", () => {
       jest.clearAllMocks();
       console.log = jest.fn(); // Mock console.log
     });
-  
-    test("should return 400 when request body is missing", async () => {
-      // Prepare test data
-      const req = {
-        parms: {}, // Missing request body
-        user: { role: 1 } // Mock admin user
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await updateCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.send).toHaveBeenCalledWith({ 
-        success: false,
-        message: "Request body is required" 
-      });
-    });
-
-    test("should return 400 when request parameter is missing", async () => {
-      // Prepare test data
-      const req = {
-        body: { name: "Updated Category" }, // Missing request parameter
-        user: { role: 1 } // Mock admin user
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await updateCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.send).toHaveBeenCalledWith({ 
-        success: false,
-        message: "Request parameter is required" 
-      });
-    });
-
-    test("should retrun 403 when user is missing", async () => {
-      // Prepare test data
-      const req = {
-        body: { name: "Updated Category" },
-        params: { id: "mock-category-id" }
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function  
-      await updateCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({ 
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    });
-
-    test("should return 403 when user is not admin", async () => {
-      // Prepare test data
-      const req = {
-        body: { name: "Updated Category" },
-        params: { id: "mock-category-id" },
-        user: { role: 0 } // Mock non-admin user
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await updateCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({ 
-        success: false,
-        message: "Unauthorized: Admin access required" 
-      });
-    });
 
     test("should return 401 when name is not provided", async () => {
       // Prepare test data
       const req = {
         body: {}, // Missing name
-        params: { id: "mock-category-id" },
-        user: { role: 1 } // Mock admin user
+        params: { id: "mock-category-id" }
       };
       
       const res = {
@@ -327,7 +172,6 @@ describe("updateCategoryController Tests", () => {
       const req = {
         body: { name: "Test Category" },
         params: {}, // Missing id
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -351,7 +195,6 @@ describe("updateCategoryController Tests", () => {
       const req = {
         body: { name: "Existing Category" },
         params: { id: "mock-category-id" },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -385,7 +228,6 @@ describe("updateCategoryController Tests", () => {
       const req = {
         body: { name: "Non-existent Category" },
         params: { id: "non-existent-id" },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -424,7 +266,6 @@ describe("updateCategoryController Tests", () => {
       const req = {
         body: { name: "Updated Category" },
         params: { id: "mock-category-id" },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -470,7 +311,6 @@ describe("updateCategoryController Tests", () => {
     const req = {
       body: { name: "Error Category" },
       params: { id: "mock-category-id" },
-      user: { role: 1 } // Mock admin user
     };
     const res = {
       status: jest.fn().mockReturnThis(),
@@ -504,46 +344,6 @@ describe("Category Controller Tests", () => {
       jest.clearAllMocks();
     });
 
-    test("should return 403 when user is missing", async () => {
-      // Prepare test data
-      const req = {};
-
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await categoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    });
-  
-    test("should return 403 when user is not admin", async () => {
-      // Prepare test data
-      const req = { user: { role: 0 } }; // Mock non-admin user
-
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await categoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    });
-
     test("should get all categories successfully", async () => {
       // Prepare test data
       const mockCategories = [
@@ -555,9 +355,7 @@ describe("Category Controller Tests", () => {
       categoryModel.find.mockResolvedValue(mockCategories);
       
       // Mock request and response objects
-      const req = {
-        user: { role: 1 } // Mock admin user
-      };
+      const req = {};
       const res = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn()
@@ -585,9 +383,7 @@ describe("Category Controller Tests", () => {
       console.log = jest.fn();
       
       // Mock request and response objects
-      const req = {
-        user: { role: 1 } // Mock admin user
-      };
+      const req = {};
       const res = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn()
@@ -612,9 +408,7 @@ describe("Category Controller Tests", () => {
       categoryModel.find.mockResolvedValue([]);
       
       // Mock request and response objects
-      const req = {
-        user: { role: 1 } // Mock admin user
-      };
+      const req = {};
       const res = {
         status: jest.fn().mockReturnThis(),
         send: jest.fn()
@@ -640,75 +434,10 @@ describe('singleCategoryController Tests', () => {
       jest.clearAllMocks();
     });
   
-    test('should return 400 when missing request parameter', async () => {
-        // Mock request and response objects
-        const req = {
-          user: { role: 1 } // Mock admin user
-        };
-        const res = {
-          status: jest.fn().mockReturnThis(),
-          send: jest.fn()
-        };
-  
-        // Call the controller function
-        await singleCategoryController(req, res);
-  
-        // Verify results
-        expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.send).toHaveBeenCalledWith({
-          success: false,
-          message: 'Request parameter is required'
-        });
-      });
-
-    test("should return 403 when user is missing", async () => {
-      // Mock request and response objects
-      const req = {
-        params: { slug: "test-category"}
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await singleCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: "Unauthorized: Admin access required",
-      });
-    });
-
-    test("should return 403 when user is not admin", async () => {
-      // Mock request and response objects
-      const req = {
-        user: { role: 0 }, // Mock non-admin user
-        params: { slug: "test-category"}
-      };
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await singleCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: "Unauthorized: Admin access required",
-      });
-    });
-
     test('should return 400 when missing slug parameter', async () => {
       // Mock request and response objects
       const req = {
         params: {},
-        user: { role: 1 } // Mock admin user
       };
       const res = {
         status: jest.fn().mockReturnThis(),
@@ -735,7 +464,6 @@ describe('singleCategoryController Tests', () => {
         params: {
           slug: 'test-category'
         },
-        user: { role: 1 } // Mock admin user
       };
 
       const res = {
@@ -761,7 +489,6 @@ describe('singleCategoryController Tests', () => {
         params: {
           slug: 'test-category'
         },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -792,7 +519,6 @@ describe('singleCategoryController Tests', () => {
         params: {
           slug: 'test-category'
         },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -828,82 +554,10 @@ describe('deleteCategoryController Tests', () => {
       jest.clearAllMocks();
     });
   
-    test("should return 403 when user is missing", async () => {
-      // Mock request and response objects
-      const req = {
-        params: {
-          slug: 'test-category'
-        }
-      };
-
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await deleteCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: 'Unauthorized: Admin access required'
-      });
-    });
-
-    test("should return 403 when user is not admin", async () => {
-      // Mock request and response objects
-      const req = {
-        params: {
-          slug: 'test-category'
-        },
-        user: { role: 0 } // Mock non-admin user
-      };
-
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await deleteCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(403);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: 'Unauthorized: Admin access required'
-      });
-    });
-
-    test('should return 400 when missing request parameter', async () => {
-      // Mock request and response objects
-      const req = {
-        user: { role: 1 } // Mock admin user
-      };
-
-      const res = {
-        status: jest.fn().mockReturnThis(),
-        send: jest.fn()
-      };
-
-      // Call the controller function
-      await deleteCategoryController(req, res);
-
-      // Verify results
-      expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.send).toHaveBeenCalledWith({
-        success: false,
-        message: 'Request parameter is required'
-      });
-    });
-
     test('should return 400 when missing category id', async () => {
       // Mock request and response objects
       const req = {
         params: {},
-        user: { role: 1 } // Mock admin user
       };
 
       const res = {
@@ -926,7 +580,6 @@ describe('deleteCategoryController Tests', () => {
       // Mock request and response objects
       const req = {
         params: { id: '123456789012' },
-        user: { role: 1 } // Mock admin user
       };
 
       const res = {
@@ -953,7 +606,6 @@ describe('deleteCategoryController Tests', () => {
       // Mock request and response objects
       const req = {
         params: { id: '123456789012' },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {
@@ -982,7 +634,6 @@ describe('deleteCategoryController Tests', () => {
       // Mock request and response objects
       const req = {
         params: { id: '123456789012' },
-        user: { role: 1 } // Mock admin user
       };
       
       const res = {

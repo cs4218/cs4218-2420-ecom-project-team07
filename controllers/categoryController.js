@@ -1,26 +1,8 @@
 import categoryModel from "../models/categoryModel.js";
 import slugify from "slugify";
 
-// Helper function to verify admin role
-const isAdmin = (req) => {
-  // Check if user exists and has admin role
-  return req.user && req.user.role === 1;
-};
-
 export const createCategoryController = async (req, res) => {
   try {
-    if (!req.body) {
-      return res.status(400).send({ message: "Request body is required" });
-    }
-
-    // Verify admin authorization
-    if (!isAdmin(req)) {
-      return res.status(403).send({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    }
-
     const { name } = req.body;
     
     if (!name) {
@@ -58,28 +40,6 @@ export const createCategoryController = async (req, res) => {
 //update category
 export const updateCategoryController = async (req, res) => {
   try {
-    if (!req.body) {
-      return res.status(400).send({ 
-        success: false,
-        message: "Request body is required" 
-      });
-    }
-
-    if (!req.params) {
-      return res.status(400).send({ 
-        success: false,
-        message: "Request parameter is required" 
-      });
-    }
-
-    // Verify admin authorization
-    if (!isAdmin(req)) {
-      return res.status(403).send({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    }
-
     const { name } = req.body;
     const { id } = req.params;
     
@@ -137,14 +97,6 @@ export const updateCategoryController = async (req, res) => {
 // get all categories
 export const categoryController = async (req, res) => {
   try {
-    // Verify admin authorization
-    if (!isAdmin(req)) {
-      return res.status(403).send({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    }
-
     const category = await categoryModel.find({});
     res.status(200).send({
       success: true,
@@ -164,21 +116,6 @@ export const categoryController = async (req, res) => {
 // single category
 export const singleCategoryController = async (req, res) => {
   try {
-    if (!req.params) {
-      return res.status(400).send({
-        success: false,
-        message: "Request parameter is required",
-      });
-    }
-
-    // Verify admin authorization
-    if (!isAdmin(req)) {
-      return res.status(403).send({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    }
-
     const { slug } = req.params;
     
     if (!slug) {
@@ -215,21 +152,6 @@ export const singleCategoryController = async (req, res) => {
 //delete category
 export const deleteCategoryController = async (req, res) => {
   try {
-    if (!req.params) {
-      return res.status(400).send({
-        success: false,
-        message: "Request parameter is required",
-      });
-    }
-
-    // Verify admin authorization
-    if (!isAdmin(req)) {
-      return res.status(403).send({
-        success: false,
-        message: "Unauthorized: Admin access required"
-      });
-    }
-
     const { id } = req.params;
     
     if (!id) {

@@ -3,6 +3,7 @@ import { registerController, updateProfileController, getOrdersController, getAl
 import userModel from "../models/userModel";
 import orderModel from "../models/orderModel";
 import { hashPassword } from "./../helpers/authHelper.js";
+import test from "node:test";
 
 jest.mock("../models/userModel.js");
 jest.mock("../models/orderModel.js");
@@ -70,20 +71,6 @@ describe("Update Profile Controller Test", () => {
       password: "oldpassword",
       phone: "1234567890",
       address: "123 Old Street",
-    });
-  });
-
-  test("should handle case when user id is missing", async () => {
-    // Set up request without user ID
-    req.user = {};
-
-    await updateProfileController(req, res);
-
-    // Verify error response - updated to match actual implementation
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.send).toHaveBeenCalledWith({
-      success: false,
-      message: "User ID is required",
     });
   });
 
@@ -229,20 +216,6 @@ describe("Get Orders Controller Test", () => {
     };
   });
 
-  test("should handle case when user ID is missing", async () => {
-    // Set up request without user ID
-    req.user = {};
-    
-    await getOrdersController(req, res);
-    
-    // Verify error response - updated to match actual implementation
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.send).toHaveBeenCalledWith({
-      success: false,
-      message: "User ID is required",
-    });
-  });
-
   test("should return user orders successfully", async () => {
     // Mock order data
     const mockOrders = [
@@ -323,58 +296,6 @@ describe("Get All Orders Controller Test", () => {
         status: "Completed"
       }
     ]);
-  });
-
-  test("should return 400 for unauthorized users", async () => {
-    // Set user as null
-    req.user = null;
-
-    await getAllOrdersController(req, res);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-    expect(res.send).toHaveBeenCalledWith({
-      success: false,
-      message: "Unauthorized. User not logged in."
-    });
-    expect(orderModel.find).not.toHaveBeenCalled();
-  });
-
-  test("should return 403 for non-admin users", async () => {
-    // Set user as non-admin
-    req.user.role = 0;
-    
-    await getAllOrdersController(req, res);
-    
-    expect(res.status).toHaveBeenCalledWith(403);
-    expect(res.send).toHaveBeenCalledWith({
-      success: false,
-      message: "Access denied. Admin access required."
-    });
-    expect(orderModel.find).not.toHaveBeenCalled();
-  });
-
-  test("should return 403 when user role is missing", async () => {
-    // Remove role from user
-    delete req.user.role;
-    
-    await getAllOrdersController(req, res);
-    
-    expect(res.status).toHaveBeenCalledWith(403);
-    expect(res.send).toHaveBeenCalledWith({
-      success: false,
-      message: "Access denied. Admin access required."
-    });
-    expect(orderModel.find).not.toHaveBeenCalled();
-  });
-
-  test("should return orders for admin users", async () => {
-    await getAllOrdersController(req, res);
-    
-    expect(orderModel.find).toHaveBeenCalledWith({});
-    expect(orderModel.populate).toHaveBeenCalledWith("products", "-photo");
-    expect(orderModel.populate).toHaveBeenCalledWith("buyer", "name");
-    expect(orderModel.sort).toHaveBeenCalledWith({ createdAt: -1 });
-    expect(res.json).toHaveBeenCalled();
   });
 
   test("should return orders sorted by createdAt in descending order", async () => {

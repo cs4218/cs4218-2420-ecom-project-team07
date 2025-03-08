@@ -14,6 +14,11 @@ export const registerController = async (req, res) => {
     if (!email) {
       return res.send({ message: "Email is Required" });
     }
+    // Check if email is in valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.send({ message: "Invalid email format" });
+    }
     if (!password) {
       return res.send({ message: "Password is Required" });
     }
@@ -116,18 +121,22 @@ export const loginController = async (req, res) => {
 };
 
 //forgotPasswordController
-
 export const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
     if (!email) {
-      res.status(400).send({ message: "Email is required" });
+      return res.status(400).send({ message: "Email is required" });
+    }
+    // Check if email is in valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.send({ message: "Invalid email format" });
     }
     if (!answer) {
-      res.status(400).send({ message: "answer is required" });
+      return res.status(400).send({ message: "answer is required" });
     }
     if (!newPassword) {
-      res.status(400).send({ message: "New Password is required" });
+      return res.status(400).send({ message: "New Password is required" });
     }
     //check
     const user = await userModel.findOne({ email, answer });
@@ -168,14 +177,6 @@ export const testController = (req, res) => {
 export const updateProfileController = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;
-    // Check if user id exists
-    if (!req.user || !req.user._id) {
-      return res.status(400).send({
-        success: false,
-        message: "User ID is required",
-      });
-    }
-    
     const user = await userModel.findById(req.user._id);
     
     // Check if user exists in database
@@ -219,14 +220,6 @@ export const updateProfileController = async (req, res) => {
 //orders
 export const getOrdersController = async (req, res) => {
   try {
-    // Check if user exists and has ID
-    if (!req.user || !req.user._id) {
-      return res.status(400).send({
-        success: false,
-        message: "User ID is required",
-      });
-    }
-    
     const orders = await orderModel
       .find({ buyer: req.user._id })
       .populate("products", "-photo")
@@ -245,22 +238,6 @@ export const getOrdersController = async (req, res) => {
 //orders
 export const getAllOrdersController = async (req, res) => {
   try {
-    // Check if user exists
-    if (!req.user) {
-      return res.status(400).send({
-        success: false,
-        message: "Unauthorized. User not logged in.",
-      });
-    }
-
-    // Check if user exists and has admin role
-    if (!req.user.role || req.user.role !== 1) {
-      return res.status(403).send({
-        success: false,
-        message: "Access denied. Admin access required.",
-      });
-    }
-
     const orders = await orderModel
       .find({})
       .populate("products", "-photo")

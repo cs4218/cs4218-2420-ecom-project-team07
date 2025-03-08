@@ -3,7 +3,6 @@ import { registerController, updateProfileController, getOrdersController, getAl
 import userModel from "../models/userModel";
 import orderModel from "../models/orderModel";
 import { hashPassword } from "./../helpers/authHelper.js";
-import test from "node:test";
 
 jest.mock("../models/userModel.js");
 jest.mock("../models/orderModel.js");

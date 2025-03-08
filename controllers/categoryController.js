@@ -1,16 +1,39 @@
 import categoryModel from "../models/categoryModel.js";
 import slugify from "slugify";
+
+// Helper function to verify admin role
+const isAdmin = (req) => {
+  // Check if user exists and has admin role
+  return req.user && req.user.role === 1;
+};
+
 export const createCategoryController = async (req, res) => {
   try {
+    if (!req.body) {
+      return res.status(400).send({ message: "Request body is required" });
+    }
+
+    // Verify admin authorization
+    if (!isAdmin(req)) {
+      return res.status(403).send({
+        success: false,
+        message: "Unauthorized: Admin access required"
+      });
+    }
+
     const { name } = req.body;
+    
     if (!name) {
-      return res.status(401).send({ message: "Name is required" });
+      return res.status(401).send({ 
+        success: false,
+        message: "Name is required" 
+      });
     }
     const existingCategory = await categoryModel.findOne({ name });
     if (existingCategory) {
       return res.status(200).send({
         success: true,
-        message: "Category Already Exisits",
+        message: "Category Already Exists",
       });
     }
     const category = await new categoryModel({
@@ -19,7 +42,7 @@ export const createCategoryController = async (req, res) => {
     }).save();
     res.status(201).send({
       success: true,
-      message: "new category created",
+      message: "New category created",
       category,
     });
   } catch (error) {
@@ -27,7 +50,7 @@ export const createCategoryController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Errro in Category",
+      message: "Error in Category",
     });
   }
 };
@@ -35,16 +58,70 @@ export const createCategoryController = async (req, res) => {
 //update category
 export const updateCategoryController = async (req, res) => {
   try {
+    if (!req.body) {
+      return res.status(400).send({ 
+        success: false,
+        message: "Request body is required" 
+      });
+    }
+
+    if (!req.params) {
+      return res.status(400).send({ 
+        success: false,
+        message: "Request parameter is required" 
+      });
+    }
+
+    // Verify admin authorization
+    if (!isAdmin(req)) {
+      return res.status(403).send({
+        success: false,
+        message: "Unauthorized: Admin access required"
+      });
+    }
+
     const { name } = req.body;
     const { id } = req.params;
+    
+    if (!name) {
+      return res.status(401).send({ 
+        success: false,
+        message: "Name is required" 
+      });
+    }
+    
+    if (!id) {
+      return res.status(401).send({ 
+        success: false,
+        message: "Category ID is required" 
+      });
+    }
+    
+    // check if category with this name already exists
+    const existingCategory = await categoryModel.findOne({ name, _id: { $ne: id } });
+    if (existingCategory) {
+      return res.status(200).send({
+        success: false,
+        message: "Category with this name already exists",
+      });
+    }
+    
     const category = await categoryModel.findByIdAndUpdate(
       id,
       { name, slug: slugify(name) },
       { new: true }
     );
+    
+    if (!category) {
+      return res.status(404).send({
+        success: false,
+        message: "Category not found",
+      });
+    }
+    
     res.status(200).send({
       success: true,
-      messsage: "Category Updated Successfully",
+      message: "Category Updated Successfully",
       category,
     });
   } catch (error) {
@@ -57,9 +134,17 @@ export const updateCategoryController = async (req, res) => {
   }
 };
 
-// get all cat
-export const categoryControlller = async (req, res) => {
+// get all categories
+export const categoryController = async (req, res) => {
   try {
+    // Verify admin authorization
+    if (!isAdmin(req)) {
+      return res.status(403).send({
+        success: false,
+        message: "Unauthorized: Admin access required"
+      });
+    }
+
     const category = await categoryModel.find({});
     res.status(200).send({
       success: true,
@@ -79,10 +164,42 @@ export const categoryControlller = async (req, res) => {
 // single category
 export const singleCategoryController = async (req, res) => {
   try {
-    const category = await categoryModel.findOne({ slug: req.params.slug });
+    if (!req.params) {
+      return res.status(400).send({
+        success: false,
+        message: "Request parameter is required",
+      });
+    }
+
+    // Verify admin authorization
+    if (!isAdmin(req)) {
+      return res.status(403).send({
+        success: false,
+        message: "Unauthorized: Admin access required"
+      });
+    }
+
+    const { slug } = req.params;
+    
+    if (!slug) {
+      return res.status(401).send({
+        success: false,
+        message: "Slug parameter is required",
+      });
+    }
+    
+    const category = await categoryModel.findOne({ slug });
+    
+    if (!category) {
+      return res.status(404).send({
+        success: false,
+        message: "Category not found",
+      });
+    }
+    
     res.status(200).send({
       success: true,
-      message: "Get SIngle Category SUccessfully",
+      message: "Get Single Category Successfully",
       category,
     });
   } catch (error) {
@@ -90,25 +207,56 @@ export const singleCategoryController = async (req, res) => {
     res.status(500).send({
       success: false,
       error,
-      message: "Error While getting Single Category",
+      message: "Error while getting Single Category",
     });
   }
 };
 
 //delete category
-export const deleteCategoryCOntroller = async (req, res) => {
+export const deleteCategoryController = async (req, res) => {
   try {
+    if (!req.params) {
+      return res.status(400).send({
+        success: false,
+        message: "Request parameter is required",
+      });
+    }
+
+    // Verify admin authorization
+    if (!isAdmin(req)) {
+      return res.status(403).send({
+        success: false,
+        message: "Unauthorized: Admin access required"
+      });
+    }
+
     const { id } = req.params;
-    await categoryModel.findByIdAndDelete(id);
+    
+    if (!id) {
+      return res.status(401).send({
+        success: false,
+        message: "Category ID is required",
+      });
+    }
+    
+    const deletedCategory = await categoryModel.findByIdAndDelete(id);
+    
+    if (!deletedCategory) {
+      return res.status(404).send({
+        success: false,
+        message: "Category not found or already deleted",
+      });
+    }
+    
     res.status(200).send({
       success: true,
-      message: "Categry Deleted Successfully",
+      message: "Category Deleted Successfully",
     });
   } catch (error) {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "error while deleting category",
+      message: "Error while deleting category",
       error,
     });
   }

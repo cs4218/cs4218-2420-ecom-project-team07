@@ -14,6 +14,11 @@ export const registerController = async (req, res) => {
     if (!email) {
       return res.send({ message: "Email is Required" });
     }
+    // Check if email is in valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.send({ message: "Invalid email format" });
+    }
     if (!password) {
       return res.send({ message: "Password is Required" });
     }
@@ -116,18 +121,22 @@ export const loginController = async (req, res) => {
 };
 
 //forgotPasswordController
-
 export const forgotPasswordController = async (req, res) => {
   try {
     const { email, answer, newPassword } = req.body;
     if (!email) {
-      res.status(400).send({ message: "Email is Required" });
+      return res.status(400).send({ message: "Email is required" });
+    }
+    // Check if email is in valid format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.send({ message: "Invalid email format" });
     }
     if (!answer) {
-      res.status(400).send({ message: "Answer is Required" });
+      return res.status(400).send({ message: "answer is required" });
     }
     if (!newPassword) {
-      res.status(400).send({ message: "New Password is Required" });
+      return res.status(400).send({ message: "New Password is required" });
     }
     //check
     const user = await userModel.findOne({ email, answer });
@@ -169,7 +178,16 @@ export const updateProfileController = async (req, res) => {
   try {
     const { name, email, password, address, phone } = req.body;
     const user = await userModel.findById(req.user._id);
-    //password
+    
+    // Check if user exists in database
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found in database",
+      });
+    }
+    
+    //password validation
     if (password && password.length < 6) {
       return res.json({ error: "Password is Required and 6 character long" });
     }
@@ -211,11 +229,12 @@ export const getOrdersController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error While Getting Orders",
+      message: "Error While Geting Orders",
       error,
     });
   }
 };
+
 //orders
 export const getAllOrdersController = async (req, res) => {
   try {
@@ -223,7 +242,7 @@ export const getAllOrdersController = async (req, res) => {
       .find({})
       .populate("products", "-photo")
       .populate("buyer", "name")
-      .sort({ createdAt: "-1" });
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     console.log(error);
@@ -240,6 +259,40 @@ export const orderStatusController = async (req, res) => {
   try {
     const { orderId } = req.params;
     const { status } = req.body;
+    
+    // Validate required parameters
+    if (!orderId) {
+      return res.status(400).send({
+        success: false,
+        message: "Order ID is required",
+      });
+    }
+    
+    if (!status) {
+      return res.status(400).send({
+        success: false,
+        message: "Status is required",
+      });
+    }
+    
+    // Validate status against allowed values
+    const allowedStatuses = ["Not Process", "Processing", "Shipped", "deliverd", "cancel"];
+    if (!allowedStatuses.includes(status)) {
+      return res.status(400).send({
+        success: false,
+        message: `Invalid status. Allowed values are: ${allowedStatuses.join(', ')}`
+      });
+    }
+    
+    // Find order first to check if it exists
+    const existingOrder = await orderModel.findById(orderId);
+    if (!existingOrder) {
+      return res.status(404).send({
+        success: false,
+        message: "Order not found",
+      });
+    }
+    
     const orders = await orderModel.findByIdAndUpdate(
       orderId,
       { status },

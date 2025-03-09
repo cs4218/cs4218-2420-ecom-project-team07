@@ -62,7 +62,9 @@ export const createProductController = async (req, res) => {
   }
 };
 
-// Returns all products, excluding their photos
+/**
+ * @returns all products, excluding their photos
+ */
 export const getProductController = async (req, res) => {
   try {
     let products = await productModel
@@ -81,7 +83,11 @@ export const getProductController = async (req, res) => {
   }
 };
 
-// Returns a specific product, excluding its photo
+/**
+ * Request must include `params`:
+ * - `slug`: the product's slug in kebab case, e.g. "my-product"
+ * @returns the specified product, excluding its photo
+ */
 export const getSingleProductController = async (req, res) => {
   try {
     let product = await productModel
@@ -99,20 +105,31 @@ export const getSingleProductController = async (req, res) => {
   }
 };
 
-// get photo
+/**
+ * Request must include `params`:
+ * - `pid`: the product's ID
+ * @returns the specified product's photo
+ */
 export const productPhotoController = async (req, res) => {
   try {
-    const product = await productModel.findById(req.params.pid).select("photo");
-    if (product.photo.data) {
-      res.set("Content-type", product.photo.contentType);
-      return res.status(200).send(product.photo.data);
+    let product = await productModel
+      .findById(req.params.pid)
+      .select("photo");
+    if (!product) {
+      res.status(StatusCodes.NOT_FOUND).send();
     }
+
+    let { photo } = product;
+    if (!photo.contentType || !photo.data) {
+      res.status(StatusCodes.NO_CONTENT).send();
+    }
+
+    res.set("Content-Type", photo.contentType);
+    res.status(StatusCodes.OK).send(photo.data);
   } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Erorr while getting photo",
-      error,
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      message: "Error encountered while getting product photo.",
     });
   }
 };

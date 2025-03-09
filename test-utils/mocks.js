@@ -8,6 +8,7 @@ export function mockRequest(body = {}, params = {}) {
 
 export function mockResponse() {
 	return {
+		set: jest.fn(),
 		json: jest.fn(),
 		status: jest.fn().mockReturnThis(),
 		send: jest.fn()

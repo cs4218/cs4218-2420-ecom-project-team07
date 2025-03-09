@@ -5,6 +5,7 @@ import productModel from "../models/productModel.js";
 import braintree from "braintree";
 import dotenv from "dotenv";
 import fs from "fs";
+import StatusCodes from "http-status-codes";
 import slugify from "slugify";
 
 dotenv.config();
@@ -61,30 +62,25 @@ export const createProductController = async (req, res) => {
   }
 };
 
-//get all products
+// Returns all products, excluding their photos
 export const getProductController = async (req, res) => {
   try {
-    const products = await productModel
+    let products = await productModel
       .find({})
-      .populate("category")
       .select("-photo")
-      .limit(12)
+      .populate("category")
       .sort({ createdAt: -1 });
-    res.status(200).send({
-      success: true,
-      counTotal: products.length,
-      message: "ALlProducts ",
+    res.status(StatusCodes.OK).send({
       products,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Erorr in getting products",
-      error: error.message,
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      message: "Error encountered while getting all products.",
     });
   }
 };
+
 // get single product
 export const getSingleProductController = async (req, res) => {
   try {

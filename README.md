@@ -30,6 +30,10 @@ Import sample data:
 1. In the root directory, run `npm run dev`
 1. Your browser should automatically open to <http://localhost:3000/>
 
+## Running Tests
+
+1. In the root directory, run `npm run test`
+
 ---
 
 # Deliverables

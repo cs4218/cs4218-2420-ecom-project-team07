@@ -32,7 +32,11 @@ Import sample data:
 
 ## Running All Tests
 
-1. In the root directory, run `npm test`. This tests both the front and backend, printing results to the console and generating code coverage report files
+1. In the root directory, run `npm test`. This tests both the front and backend together, printing results to the console
+
+### Code Coverage Reports
+
+1. If generating code coverage files is desired, this can currently only be done for either the frontend or backend individually (the generated files will overwrite each other). Run either `npm run test:frontend` or `npm run test:backend`. You can then open `client\public\index.html`
 
 ### Running a Specific Test Suite (File)
 

@@ -1,4 +1,5 @@
 import express from "express";
+import formidable from "express-formidable";
 import {
   brainTreePaymentController,
   braintreeTokenController,
@@ -11,12 +12,11 @@ import {
   productFiltersController,
   productListController,
   productPhotoController,
-  realtedProductController,
+  relatedProductController,
   searchProductController,
   updateProductController,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
-import formidable from "express-formidable";
 
 const router = express.Router();
 
@@ -62,7 +62,7 @@ router.get("/product-list/:page", productListController);
 router.get("/search/:keyword", searchProductController);
 
 //similar product
-router.get("/related-product/:pid/:cid", realtedProductController);
+router.get("/related-product/:pid/:cid", relatedProductController);
 
 //category wise product
 router.get("/product-category/:slug", productCategoryController);

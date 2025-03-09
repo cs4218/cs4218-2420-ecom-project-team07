@@ -34,4 +34,4 @@ Import sample data:
 
 # Deliverables
 
-- MS1 CI link: <https://github.com/cs4218/cs4218-2420-ecom-project-team07/actions/runs/13257127913/job/37005801949>
+- MS1 CI link: <https://github.com/cs4218/cs4218-2420-ecom-project-team07/actions/runs/13751876739/job/38453842673>

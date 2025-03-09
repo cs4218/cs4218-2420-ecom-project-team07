@@ -25,7 +25,7 @@ Import sample data:
 1. In Compass, create 4 collections in your database accordingly: `categories`, `orders`, `products`, `users`
 1. For each collection, import its respective JSON file
 
-## Running the project
+## Running the Project
 
 1. In the root directory, run `npm run dev`
 1. Your browser should automatically open to <http://localhost:3000/>

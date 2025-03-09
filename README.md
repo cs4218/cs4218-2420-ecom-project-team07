@@ -30,9 +30,15 @@ Import sample data:
 1. In the root directory, run `npm run dev`. This starts both the front and backend
 1. Your browser should automatically open to <http://localhost:3000/>
 
-## Running Tests
+## Running All Tests
 
-1. In the root directory, run `npm run test`. This tests both the front and backend, printing results to the console and generating code coverage report files
+1. In the root directory, run `npm test`. This tests both the front and backend, printing results to the console and generating code coverage report files
+
+### Running a Specific Test Suite (File)
+
+1. Run `npm test -- [File Name]`, e.g. `npm test -- productController` to run only the tests in `controllers/productController.test.js`
+
+<https://stackoverflow.com/a/28775887/11536796>
 
 # Developer Documentation
 

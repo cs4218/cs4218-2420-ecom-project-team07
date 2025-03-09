@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741533031001" clover="3.2.0">
-  <project timestamp="1741533031001" name="All files">
-    <metrics statements="577" coveredstatements="188" conditionals="126" coveredconditionals="39" methods="167" coveredmethods="63" elements="870" coveredelements="290" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
+<coverage generated="1741536886034" clover="3.2.0">
+  <project timestamp="1741536886034" name="All files">
+    <metrics statements="577" coveredstatements="193" conditionals="126" coveredconditionals="39" methods="167" coveredmethods="65" elements="870" coveredelements="297" complexity="0" loc="577" ncloc="577" packages="9" files="37" classes="37"/>
     <package name="components">
       <metrics statements="30" coveredstatements="15" conditionals="7" coveredconditionals="1" methods="12" coveredmethods="5"/>
       <file name="AdminMenu.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/components/AdminMenu.js">
@@ -424,7 +424,7 @@
       </file>
     </package>
     <package name="pages.admin">
-      <metrics statements="209" coveredstatements="34" conditionals="34" coveredconditionals="2" methods="51" coveredmethods="12"/>
+      <metrics statements="209" coveredstatements="39" conditionals="34" coveredconditionals="2" methods="51" coveredmethods="14"/>
       <file name="AdminDashboard.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/admin/AdminDashboard.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="1" type="stmt"/>
@@ -432,30 +432,30 @@
         <line num="8" count="1" type="stmt"/>
       </file>
       <file name="AdminOrders.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/admin/AdminOrders.js">
-        <metrics statements="23" coveredstatements="17" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="6"/>
+        <metrics statements="23" coveredstatements="22" conditionals="4" coveredconditionals="2" methods="8" coveredmethods="8"/>
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="21" count="3" type="stmt"/>
-        <line num="22" count="3" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="32" count="3" type="stmt"/>
-        <line num="33" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="36" count="3" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="32" count="6" type="stmt"/>
+        <line num="33" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="46" count="3" type="stmt"/>
-        <line num="55" count="1" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="78" count="5" type="stmt"/>
-        <line num="93" count="2" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="46" count="6" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="78" count="10" type="stmt"/>
+        <line num="93" count="4" type="stmt"/>
       </file>
       <file name="CreateCategory.js" path="/Users/kihyun/CS4218/cs4218-2420-ecom-project-team07/client/src/pages/admin/CreateCategory.js">
         <metrics statements="52" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="10" coveredmethods="0"/>

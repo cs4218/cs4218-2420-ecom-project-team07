@@ -6,18 +6,18 @@ import Layout from "../../components/Layout";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
 import { Select } from "antd";
-const { Option } = Select;
+const Option = Select;
 
 const AdminOrders = () => {
   const [status, setStatus] = useState([
     "Not Process",
     "Processing",
     "Shipped",
-    "delivered",
-    "cancel",
+    "Delivered",
+    "Cancelled",
   ]);
   
-  const [changeStatus, setCHangeStatus] = useState("");
+  const [changeStatus, setChangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();
   const getOrders = async () => {

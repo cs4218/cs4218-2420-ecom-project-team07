@@ -22,6 +22,33 @@ jest.mock("../../components/AdminMenu", () =>
         <div data-testid="admin-menu">Admin Menu</div>
 ));
 
+jest.mock("antd", () => ({
+    ...jest.requireActual("antd"),
+    Select: ({ value, onChange }) => {
+      const statusOptions = [
+        "Not Process",
+        "Processing",
+        "Shipped",
+        "Delivered",
+        "Cancelled",
+      ];
+  
+      const options = statusOptions.map((status) => (
+        <option key={status} value={status}>
+          {status}
+        </option>
+      ));
+  
+      return (
+        <select value={value} onChange={(o) => onChange(o.target.value)}>
+          {options}
+        </select>
+      );
+    },
+}));
+
+jest.spyOn(console, "log").mockImplementation(() => {});
+
 const mockAuth = {
     name: "CS 4218 Test Account",
     email: "cs4218@test.com",
@@ -96,5 +123,48 @@ describe("AdminOrders Component", () => {
         await waitFor(() => {
             expect(axios.get).toHaveBeenCalledWith("/api/v1/auth/all-orders");
         });
+    });
+
+    it("should display an error message on failed API call in getOrders", async () => {
+        axios.get.mockRejectedValueOnce({ message: "getOrders API error" });
+    
+        render(
+          <MemoryRouter>
+            <AdminOrders />
+          </MemoryRouter>
+        );
+    
+        await waitFor(() => expect(console.log).toHaveBeenCalledWith({ message: "getOrders API error" }));
+    });
+
+    it("should change the status of order correctly and display an error message on failed API call in handleChange", async () => {
+        axios.get.mockResolvedValueOnce({ data: mockOrders });
+        axios.put.mockRejectedValueOnce({ message: "handleChange API error" });
+    
+        const { getByText, getByDisplayValue } = render(
+          <MemoryRouter>
+            <AdminOrders />
+          </MemoryRouter>
+        );
+    
+        await waitFor(() => expect(getByText("Not Process")).toBeInTheDocument());
+    
+        const currentStatus = getByDisplayValue("Not Process");
+        fireEvent.change(currentStatus, { target: { value: "Processing" } });
+    
+        const processingOption = await waitFor(() => getByText("Processing"));
+        expect(processingOption).toBeInTheDocument();
+    
+        await waitFor(() => expect(axios.put).toHaveBeenCalledTimes(1));
+
+        await waitFor(() => {
+          expect(axios.put).toHaveBeenCalledWith(
+            `/api/v1/auth/order-status/${mockOrders[0]._id}`,
+            { status: "Processing" }
+          );
+          expect(console.log).toHaveBeenCalledWith({ message: "handleChange API error" });
+        });
+
+        expect(axios.get).toHaveBeenCalledTimes(4);
     });
 });

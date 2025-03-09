@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1741491399655" clover="3.2.0">
-  <project timestamp="1741491399655" name="All files">
+<coverage generated="1741493511678" clover="3.2.0">
+  <project timestamp="1741493511678" name="All files">
     <metrics statements="296" coveredstatements="166" conditionals="110" coveredconditionals="78" methods="30" coveredmethods="13" elements="436" coveredelements="257" complexity="0" loc="296" ncloc="296" packages="1" files="3" classes="3"/>
     <file name="authController.js" path="/Users/zhenxu/Documents/Code/Trae Projects/cs4218-2420-ecom-project-team07/controllers/authController.js">
       <metrics statements="109" coveredstatements="109" conditionals="58" coveredconditionals="58" methods="8" coveredmethods="8"/>

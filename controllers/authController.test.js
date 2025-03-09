@@ -324,7 +324,6 @@ describe("Forgot Password Controller Test", () => {
   });
   
   test("should return error when answer is missing", async () => {
-    req.body.email = "john@example.com";
     req.body.answer = "";
     
     await forgotPasswordController(req, res);
@@ -334,8 +333,6 @@ describe("Forgot Password Controller Test", () => {
   });
   
   test("should return error when new password is missing", async () => {
-    req.body.email = "john@example.com";
-    req.body.answer = "Football";
     req.body.newPassword = "";
     
     await forgotPasswordController(req, res);
@@ -895,7 +892,9 @@ describe("Order Status Controller Test", () => {
 
   test("should handle missing orderId", async () => {
     // Remove orderId from request
-    req.params = {};
+    req.params = {
+      orderId: ""
+    };
     
     await orderStatusController(req, res);
     
@@ -909,7 +908,9 @@ describe("Order Status Controller Test", () => {
   
   test("should handle missing status", async () => {
     // Remove status from request
-    req.body = {};
+    req.body = {
+      status: ""
+    };
     
     await orderStatusController(req, res);
     

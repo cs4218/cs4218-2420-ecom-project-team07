@@ -3,10 +3,10 @@ name: Run Tests
 on:
   pull_request:
     branches:
-      - kihyun_ms1
+      - main
   push:
     branches:
-      - kihyun_ms1
+      - main
 
 jobs:
   test:

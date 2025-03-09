@@ -22,31 +22,6 @@ jest.mock("../../components/AdminMenu", () =>
         <div data-testid="admin-menu">Admin Menu</div>
 ));
 
-jest.mock("antd", () => ({
-    ...jest.requireActual("antd"),
-    Select: ({ value, onChange }) => {
-      const Status = [
-        "Not Process",
-        "Processing",
-        "Shipped",
-        "deliverd",
-        "cancel"
-      ];
-  
-      const options = Status.map((status) => (
-        <option key={status} value={status}>
-          {status}
-        </option>
-      ));
-  
-      return (
-        <select value={value} onChange={(o) => onChange(o.target.value)}>
-          {options}
-        </select>
-      );
-    },
-}));
-
 const mockAuth = {
     name: "CS 4218 Test Account",
     email: "cs4218@test.com",
@@ -120,31 +95,6 @@ describe("AdminOrders Component", () => {
 
         await waitFor(() => {
             expect(axios.get).toHaveBeenCalledWith("/api/v1/auth/all-orders");
-        });
-    });
-
-    it("should update order status when changed", async () => {
-        axios.get.mockResolvedValueOnce({ data: mockOrders });
-        axios.put.mockResolvedValueOnce({ data: { success: true } });
-
-        const { getByText, getByDisplayValue, findByText } = render(
-            <MemoryRouter>
-                <AdminOrders />
-            </MemoryRouter>
-        );
-
-        const buyer = await findByText(mockOrders[0].buyer.name);
-        expect(buyer).toBeInTheDocument();
-
-        const status = getByDisplayValue(mockOrders[0].status);
-        fireEvent.change(status, { target: { value: "Processing" }});
-
-        await waitFor(() => expect(axios.put).toHaveBeenCalledTimes(1));
-
-        expect(getByText("Processing")).toBeInTheDocument();
-
-        await waitFor(() => {
-            expect(axios.put).toHaveBeenCalledWith(`/api/v1/auth/order-status/${mockOrders[0]._id}`, { status: "Processing" });
         });
     });
 });

@@ -2,8 +2,8 @@ import { jest } from "@jest/globals";
 
 
 
-export function mockRequest(body = {}) {
-	return { body };
+export function mockRequest(body = {}, params = {}) {
+	return { body, params };
 }
 
 export function mockResponse() {

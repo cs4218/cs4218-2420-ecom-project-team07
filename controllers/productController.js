@@ -81,24 +81,20 @@ export const getProductController = async (req, res) => {
   }
 };
 
-// get single product
+// Returns a specific product, excluding its photo
 export const getSingleProductController = async (req, res) => {
   try {
-    const product = await productModel
+    let product = await productModel
       .findOne({ slug: req.params.slug })
       .select("-photo")
       .populate("category");
-    res.status(200).send({
-      success: true,
-      message: "Single Product Fetched",
-      product,
-    });
+      res.status(StatusCodes.OK).send({
+        product,
+      });
   } catch (error) {
-    console.log(error);
-    res.status(500).send({
-      success: false,
-      message: "Eror while getitng single product",
-      error,
+    console.error(error);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
+      message: "Error encountered while getting single product.",
     });
   }
 };

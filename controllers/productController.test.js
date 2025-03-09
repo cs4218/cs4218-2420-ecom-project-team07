@@ -3,7 +3,7 @@ import { expect, jest } from "@jest/globals";
 import { StatusCodes } from "http-status-codes";
 import productModel from "../models/productModel.js";
 import { mockRequest, mockResponse } from "../test-utils/mocks.js";
-import { getProductController, getSingleProductController, productPhotoController } from "./productController.js";
+import { getProductController, getSingleProductController, productCountController, productPhotoController } from "./productController.js";
 
 
 
@@ -15,6 +15,7 @@ jest.mock("../models/productModel.js", () => ({
 	select: jest.fn().mockReturnThis(),
 	populate: jest.fn().mockReturnThis(),
 	sort: jest.fn().mockReturnThis(),
+	estimatedDocumentCount: jest.fn().mockReturnThis(),
 }));
 
 beforeEach(() => {
@@ -181,5 +182,41 @@ describe("productPhotoController tests", () => {
 
 		expect(res.status).toBeCalledWith(StatusCodes.NO_CONTENT);
 		expect(res.send).toBeCalled();
+	});
+});
+
+describe("productCountController tests", () => {
+	it("should successfully count all products", async () => {
+		let count = 7050;
+		productModel.estimatedDocumentCount.mockImplementationOnce(() => count);
+
+		let req = mockRequest();
+		let res = mockResponse();
+		await productCountController(req, res);
+
+		expect(productModel.find).toBeCalled();
+		expect(productModel.estimatedDocumentCount).toBeCalled();
+
+		expect(res.status).toBeCalledWith(StatusCodes.OK);
+		expect(res.send).toBeCalledWith(
+			{ total: count }
+		);
+	});
+
+	it("should error when the model errors", async () => {
+		productModel.find.mockImplementationOnce(() => {
+			throw new Error();
+		});
+
+		let req = mockRequest();
+		let res = mockResponse();
+		await productCountController(req, res);
+
+		expect(productModel.find).toBeCalled();
+
+		expect(res.status).toBeCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+		expect(res.send).toBeCalledWith(
+			{ message: expect.anything() }
+		);
 	});
 });

@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import { jest } from "@jest/globals";
-import { registerController } from "./authController";
-import userModel from "../models/userModel";
-
-jest.mock("../models/userModel.js");
-=======
 import { expect, jest } from "@jest/globals";
 import { registerController, loginController, forgotPasswordController, testController, updateProfileController, getOrdersController, getAllOrdersController, orderStatusController } from "./authController";
 import userModel from "../models/userModel";
@@ -16,7 +9,6 @@ jest.mock("../models/userModel.js");
 jest.mock("../models/orderModel.js");
 jest.mock("./../helpers/authHelper.js");
 jest.mock("jsonwebtoken");
->>>>>>> cs4218-zhenxu/zhenxu
 
 describe("Register Controller Test", () => {
   let req, res;
@@ -26,11 +18,7 @@ describe("Register Controller Test", () => {
     req = {
       body: {
         name: "John Doe",
-<<<<<<< HEAD
-        email: "invalid-email",
-=======
         email: "john@example.com",
->>>>>>> cs4218-zhenxu/zhenxu
         password: "password123",
         phone: "12344000",
         address: "123 Street",
@@ -40,23 +28,6 @@ describe("Register Controller Test", () => {
 
     res = {
       status: jest.fn().mockReturnThis(),
-<<<<<<< HEAD
-      send: jest.fn(),
-    };
-  });
-
-  test("user model is not saved for invalid email", async () => {
-    // specify mock functionality
-    userModel.findOne = jest.fn().mockResolvedValue(null);
-    userModel.prototype.save = jest.fn();
-
-    await registerController(req, res);
-    // original code
-    // expect(userModel.prototype.save).not.toHaveBeenCalled();
-    expect(userModel.prototype.save).toHaveBeenCalled();
-  });
-});
-=======
       send: jest.fn().mockReturnThis(), // Mock to return this for chaining
       json: jest.fn(),
     };
@@ -1035,4 +1006,3 @@ describe("Order Status Controller Test", () => {
     });
   });
 });
->>>>>>> cs4218-zhenxu/zhenxu

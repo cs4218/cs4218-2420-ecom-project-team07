@@ -36,9 +36,13 @@ Import sample data:
 
 # Developer Documentation
 
+## Provided Test Account
+
+- The sample data from Canvas includes a user account whose email and password are both `cs4218@test.com`. This may be useful when testing out the website
+
 ## Elevating an Account to Admin
 
-1. In Compass, change the user object's `role` value from 0 to 1
+1. In Compass, change the user object's `role` value from `0` to `1`
 
 ---
 

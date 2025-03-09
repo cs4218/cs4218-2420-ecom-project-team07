@@ -11,13 +11,13 @@
 
 Install dependencies:
 
-1. In the root directory, run `npm i` for the backend
-1. In the `client` directory, run `npm i` for the frontend
+1. In the root directory, run `npm i` for the backend server
+1. In the `client` directory, run `npm i` for the frontend client
 
 Set up environment file:
 
 1. Make a copy of `env.example` and rename it to `.env`
-1. Replace the value of `MONGO_URL` with that of your own MongoDB connection string
+1. Replace the value of `MONGO_URL` with that of your own MongoDB connection string. Be sure to specify the correct database name at the end
 
 Import sample data:
 
@@ -27,12 +27,18 @@ Import sample data:
 
 ## Running the Project
 
-1. In the root directory, run `npm run dev`
+1. In the root directory, run `npm run dev`. This starts both the front and backend
 1. Your browser should automatically open to <http://localhost:3000/>
 
 ## Running Tests
 
-1. In the root directory, run `npm run test`
+1. In the root directory, run `npm run test`. This tests both the front and backend, printing results to the console and generating code coverage report files
+
+# Developer Documentation
+
+## Elevating an Account to Admin
+
+1. In Compass, change the user object's `role` value from 0 to 1
 
 ---
 

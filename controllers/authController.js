@@ -37,7 +37,7 @@ export const registerController = async (req, res) => {
     if (exisitingUser) {
       return res.status(200).send({
         success: false,
-        message: "Already Register, Please Login",
+        message: "Already Register, please login",
       });
     }
     //register user
@@ -75,7 +75,7 @@ export const loginController = async (req, res) => {
     if (!email || !password) {
       return res.status(404).send({
         success: false,
-        message: "Invalid Email or Password",
+        message: "Invalid email or password",
       });
     }
     //check user
@@ -99,7 +99,7 @@ export const loginController = async (req, res) => {
     });
     res.status(200).send({
       success: true,
-      message: "Login Successfully",
+      message: "login successfully",
       user: {
         _id: user._id,
         name: user.name,
@@ -114,7 +114,7 @@ export const loginController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error in Login",
+      message: "Error in login",
       error,
     });
   }
@@ -144,7 +144,7 @@ export const forgotPasswordController = async (req, res) => {
     if (!user) {
       return res.status(404).send({
         success: false,
-        message: "Wrong Email or Answer",
+        message: "Wrong Email Or Answer",
       });
     }
     const hashed = await hashPassword(newPassword);
@@ -157,7 +157,7 @@ export const forgotPasswordController = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      message: "Something Went Wrong",
+      message: "Something went wrong",
       error,
     });
   }
@@ -189,7 +189,7 @@ export const updateProfileController = async (req, res) => {
     
     //password validation
     if (password && password.length < 6) {
-      return res.json({ error: "Password is Required and 6 character long" });
+      return res.json({ error: "Password is required and 6 character long" });
     }
     const hashedPassword = password ? await hashPassword(password) : undefined;
     const updatedUser = await userModel.findByIdAndUpdate(

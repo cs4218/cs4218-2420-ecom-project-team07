@@ -98,7 +98,7 @@ describe("Register Controller Test", () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalledWith({
       success: false,
-      message: "Already Register please login",
+      message: "Already Register, please login",
     });
   });
 
@@ -501,7 +501,7 @@ describe("Update Profile Controller Test", () => {
 
     // Verify json was called with error message
     expect(res.json).toHaveBeenCalledWith({ 
-      error: "Passsword is required and 6 character long" 
+      error: "Password is required and 6 character long" 
     });
     
     // Verify hashPassword was not called
@@ -1001,7 +1001,7 @@ describe("Order Status Controller Test", () => {
     expect(res.status).toHaveBeenCalledWith(500);
     expect(res.send).toHaveBeenCalledWith({
       success: false,
-      message: "Error While Updateing Order",
+      message: "Error While Updating Order",
       error: expect.any(Error),
     });
   });

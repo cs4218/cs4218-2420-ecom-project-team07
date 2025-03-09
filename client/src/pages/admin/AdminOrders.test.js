@@ -22,6 +22,31 @@ jest.mock("../../components/AdminMenu", () =>
         <div data-testid="admin-menu">Admin Menu</div>
 ));
 
+jest.mock("antd", () => ({
+    ...jest.requireActual("antd"),
+    Select: ({ value, onChange }) => {
+      const Status = [
+        "Not Process",
+        "Processing",
+        "Shipped",
+        "deliverd",
+        "cancel"
+      ];
+  
+      const options = Status.map((status) => (
+        <option key={status} value={status}>
+          {status}
+        </option>
+      ));
+  
+      return (
+        <select value={value} onChange={(o) => onChange(o.target.value)}>
+          {options}
+        </select>
+      );
+    },
+}));
+
 const mockAuth = {
     name: "CS 4218 Test Account",
     email: "cs4218@test.com",
@@ -32,7 +57,7 @@ const mockAuth = {
 const mockOrders = [
     {
         _id: "1",
-        status: "Processing",
+        status: "Not Process",
         buyer: { name: "Daniel" },
         createAt: new Date().toISOString(),
         payment: { success: true },
@@ -63,12 +88,22 @@ describe("AdminOrders Component", () => {
 
         await waitFor(() => {
             mockOrders.forEach((order) => {
+                expect(getByText("#")).toBeInTheDocument();
+                expect(getByText("Status")).toBeInTheDocument();
+                expect(getByText("Buyer")).toBeInTheDocument();
+                expect(getByText("Date")).toBeInTheDocument();
+                expect(getByText("Payment")).toBeInTheDocument();
+                expect(getByText("Quantity")).toBeInTheDocument();
+                expect(getByText(order._id)).toBeInTheDocument();
                 expect(getByText(order.status)).toBeInTheDocument();
                 expect(getByText(order.buyer.name)).toBeInTheDocument();
                 expect(getByText("a few seconds ago")).toBeInTheDocument();
                 expect(getByText("Success")).toBeInTheDocument();
+                expect(getByText(order.products.length)).toBeInTheDocument();
                 order.products.forEach((product) => {
                     expect(getByText(product.name)).toBeInTheDocument();
+                    expect(getByText(product.description.substring(0, 30))).toBeInTheDocument();
+                    expect(getByText(`Price : ${product.price}`)).toBeInTheDocument();
                 });
             });
         });
@@ -92,24 +127,24 @@ describe("AdminOrders Component", () => {
         axios.get.mockResolvedValueOnce({ data: mockOrders });
         axios.put.mockResolvedValueOnce({ data: { success: true } });
 
-        const { getByText, getByRole } = render(
+        const { getByText, getByDisplayValue, findByText } = render(
             <MemoryRouter>
                 <AdminOrders />
             </MemoryRouter>
         );
 
+        const buyer = await findByText(mockOrders[0].buyer.name);
+        expect(buyer).toBeInTheDocument();
+
+        const status = getByDisplayValue(mockOrders[0].status);
+        fireEvent.change(status, { target: { value: "Processing" }});
+
+        await waitFor(() => expect(axios.put).toHaveBeenCalledTimes(1));
+
+        expect(getByText("Processing")).toBeInTheDocument();
+
         await waitFor(() => {
-            const select = getByRole("combobox");
-            expect(select).toHaveValue("Processing");
-        });
-
-        fireEvent.mouseDown(select);
-
-        const shippedOption = await waitFor(() => getByText("Shipped"));
-        fireEvent.click(shippedOption);
-
-        await waitFor(() => {
-            expect(axios.put).toHaveBeenCalledWith("/api/v1/auth/order-status/order1", { status: "Shipped" });
+            expect(axios.put).toHaveBeenCalledWith(`/api/v1/auth/order-status/${mockOrders[0]._id}`, { status: "Processing" });
         });
     });
 });

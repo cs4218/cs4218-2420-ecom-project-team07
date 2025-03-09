@@ -28,17 +28,25 @@ describe("getProductController tests", () => {
 		expect(productModel.find).toBeCalled();
 
 		expect(res.status).toBeCalledWith(StatusCodes.OK);
-		expect(res.send).toBeCalled();
+		expect(res.send).toBeCalledWith(
+			expect.objectContaining({ products: expect.anything() })
+		);
 	});
 
 	it("should error when the model errors", async () => {
-		// let req = mockRequest();
-		// let res = mockResponse();
-		// await getProductController(req, res);
+		productModel.find.mockImplementationOnce(() => {
+			throw new Error();
+		});
 
-		// expect(productModel.find).toBeCalled();
+		let req = mockRequest();
+		let res = mockResponse();
+		await getProductController(req, res);
 
-		// expect(res.status).toBeCalledWith(StatusCodes.OK);
-		// expect(res.send).toBeCalled();
+		expect(productModel.find).toBeCalled();
+
+		expect(res.status).toBeCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
+		expect(res.send).toBeCalledWith(
+			expect.objectContaining({ message: expect.anything() })
+		);
 	});
 });

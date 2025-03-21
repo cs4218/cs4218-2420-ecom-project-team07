@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.83% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/24</span>
+                <span class='fraction'>18/24</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/23</span>
+                <span class='fraction'>17/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -201,33 +201,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,7 +255,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -309,18 +309,18 @@ import Layout from "../../components/Layout";
 import { useAuth } from "../../context/auth";
 import moment from "moment";
 import { Select } from "antd";
-const Option = Select;
+const { Option } = Select;
 &nbsp;
 const AdminOrders = () =&gt; {
   const [status, setStatus] = useState([
     "Not Process",
     "Processing",
     "Shipped",
-    "Delivered",
-    "Cancelled",
+    "delivered",
+    "cancel",
   ]);
   
-  const [changeStatus, setChangeStatus] = useState("");
+  const [changeStatus, setCHangeStatus] = useState("");
   const [orders, setOrders] = useState([]);
   const [auth, setAuth] = useAuth();
   const getOrders = async () =&gt; {
@@ -328,7 +328,7 @@ const AdminOrders = () =&gt; {
       const { data } = await axios.get("/api/v1/auth/all-orders");
       setOrders(data);
     } catch (error) {
-      console.log(error);
+<span class="cstat-no" title="statement not covered" >      console.log(error);</span>
     }
   };
 &nbsp;
@@ -336,14 +336,14 @@ const AdminOrders = () =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (auth?.token) getOrders();
   }, [auth?.token]);
 &nbsp;
-  const handleChange = async (orderId, value) =&gt; {
-    try {
-      const { data } = await axios.put(`/api/v1/auth/order-status/${orderId}`, {
+  const handleChange = <span class="fstat-no" title="function not covered" >as</span>ync (orderId, value) =&gt; {
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const { data } = <span class="cstat-no" title="statement not covered" >await axios.put(`/api/v1/auth/order-status/${orderId}`, {</span>
         status: value,
       });
 <span class="cstat-no" title="statement not covered" >      getOrders();</span>
     } catch (error) {
-      console.log(error);
+<span class="cstat-no" title="statement not covered" >      console.log(error);</span>
     }
   };
   return (
@@ -356,7 +356,7 @@ const AdminOrders = () =&gt; {
           &lt;h1 className="text-center"&gt;All Orders&lt;/h1&gt;
           {orders?.map((o, i) =&gt; {
             return (
-              &lt;div className="border shadow" key={o._id}&gt;
+              &lt;div className="border shadow"&gt;
                 &lt;table className="table"&gt;
                   &lt;thead&gt;
                     &lt;tr&gt;
@@ -374,7 +374,7 @@ const AdminOrders = () =&gt; {
                       &lt;td&gt;
                         &lt;Select
                           variant="borderless"
-                          onChange={(value) =&gt; handleChange(o._id, value)}
+                          onChange={<span class="fstat-no" title="function not covered" >(v</span>alue) =&gt; <span class="cstat-no" title="statement not covered" >handleChange(o._id, value)}</span>
                           defaultValue={o?.status}
                         &gt;
                           {status.map((s, i) =&gt; (
@@ -427,7 +427,7 @@ export default AdminOrders;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-09T16:14:46.015Z
+                at 2025-03-09T07:19:08.910Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

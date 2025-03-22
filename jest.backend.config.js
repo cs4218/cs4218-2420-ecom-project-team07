@@ -14,6 +14,8 @@ export default {
     // "<rootDir>/models/*.test.js",
     "<rootDir>/controllers/authController.test.js",
     "<rootDir>/controllers/categoryController.test.js",
+    "<rootDir>/controllers/authController.integration.test.js",
+    "<rootDir>/controllers/categoryController.integration.test.js",
   ],
 
   // jest code coverage

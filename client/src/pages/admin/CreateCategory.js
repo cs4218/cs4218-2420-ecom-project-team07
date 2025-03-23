@@ -14,12 +14,17 @@ const CreateCategory = () => {
   //handle Form
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if the name is empty
+    if (!name || name.trim() === "") {
+      return toast.error("Category name cannot be empty");
+    }
     try {
       const { data } = await axios.post("/api/v1/category/create-category", {
         name,
       });
       if (data?.success) {
         toast.success(`${name} is created`);
+        setName("");
         getAllCategory();
       } else {
         toast.error(data.message);
@@ -39,7 +44,7 @@ const CreateCategory = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something wwent wrong in getting catgeory");
+      toast.error("Something went wrong in getting catgeory");
     }
   };
 
@@ -50,6 +55,10 @@ const CreateCategory = () => {
   //update category
   const handleUpdate = async (e) => {
     e.preventDefault();
+    // Check if the updated name is empty
+    if (!updatedName || updatedName.trim() === "") {
+      return toast.error("Category name cannot be empty");
+    }
     try {
       const { data } = await axios.put(
         `/api/v1/category/update-category/${selected._id}`,

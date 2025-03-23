@@ -78,7 +78,7 @@ describe("Register Component", () => {
     fireEvent.change(getByPlaceholderText("Enter Your DOB"), {
       target: { value: "2000-01-01" },
     });
-    fireEvent.change(getByPlaceholderText("What is Your Favorite sports"), {
+    fireEvent.change(getByPlaceholderText("What is Your Favorite Sports"), {
       target: { value: "Football" },
     });
 
@@ -86,12 +86,18 @@ describe("Register Component", () => {
 
     await waitFor(() => expect(axios.post).toHaveBeenCalled());
     expect(toast.success).toHaveBeenCalledWith(
-      "Register Successfully, please login"
+      "Register Successfully, Please Login"
     );
   });
 
-  it("should display error message on failed registration", async () => {
-    axios.post.mockRejectedValueOnce({ message: "User already exists" });
+  it("should display an error message on failed registration", async () => {
+    axios.post.mockResolvedValueOnce({
+      data: {
+        success: false,
+        message: "User already exists"
+      }
+    })
+    .mockRejectedValueOnce({ message: "Server error" });
 
     const { getByText, getByPlaceholderText } = render(
       <MemoryRouter initialEntries={["/register"]}>
@@ -119,13 +125,18 @@ describe("Register Component", () => {
     fireEvent.change(getByPlaceholderText("Enter Your DOB"), {
       target: { value: "2000-01-01" },
     });
-    fireEvent.change(getByPlaceholderText("What is Your Favorite sports"), {
+    fireEvent.change(getByPlaceholderText("What is Your Favorite Sports"), {
       target: { value: "Football" },
     });
 
     fireEvent.click(getByText("REGISTER"));
 
-    await waitFor(() => expect(axios.post).toHaveBeenCalled());
+    await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
+    expect(toast.error).toHaveBeenCalledWith("User already exists");
+
+    fireEvent.click(getByText("REGISTER"));
+
+    await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(2));
     expect(toast.error).toHaveBeenCalledWith("Something went wrong");
   });
 });

@@ -48,7 +48,7 @@ describe("Login Component", () => {
     jest.clearAllMocks();
   });
 
-  it("renders login form", () => {
+  it("should render login form", () => {
     const { getByText, getByPlaceholderText } = render(
       <MemoryRouter initialEntries={["/login"]}>
         <Routes>
@@ -133,8 +133,14 @@ describe("Login Component", () => {
     });
   });
 
-  it("should display error message on failed login", async () => {
-    axios.post.mockRejectedValueOnce({ message: "Invalid credentials" });
+  it("should display an error message on failed login", async () => {
+    axios.post.mockResolvedValueOnce({ 
+      data: {
+        success: false,
+        message: "Invalid credentials"
+      }
+    })
+    .mockRejectedValueOnce({ message: "Server error" });
 
     const { getByPlaceholderText, getByText } = render(
       <MemoryRouter initialEntries={["/login"]}>
@@ -152,7 +158,24 @@ describe("Login Component", () => {
     });
     fireEvent.click(getByText("LOGIN"));
 
-    await waitFor(() => expect(axios.post).toHaveBeenCalled());
+    await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
+    expect(toast.error).toHaveBeenCalledWith("Invalid credentials");
+
+    fireEvent.click(getByText("LOGIN"));
+
+    await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(2));
     expect(toast.error).toHaveBeenCalledWith("Something went wrong");
+  });
+
+  it("should navigate to forgot password page on button click", ()  => {
+    const { getByText } = render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    fireEvent.click(getByText("Forgot Password"));
   });
 });

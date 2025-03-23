@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import slugify from "slugify";
 import products from "../test-utils/test.products.json";
 
 
@@ -21,7 +20,9 @@ export function getSampleProducts() {
 			quantity: product.quantity,
 			shipping: product.shipping,
 			photo: getImportedPhoto(product.photo),
-			slug: slugify(product.name)
+
+			_id: new mongoose.Types.ObjectId(product._id.$oid),
+			slug: product.slug
 		};
 	});
 }

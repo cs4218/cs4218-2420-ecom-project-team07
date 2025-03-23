@@ -6,6 +6,7 @@ import braintree from "braintree";
 import dotenv from "dotenv";
 import fs from "fs";
 import StatusCodes from "http-status-codes";
+import mongoose from "mongoose";
 import { toLowerSlug } from "../helpers/utils.js";
 
 dotenv.config();
@@ -118,8 +119,14 @@ export const getSingleProductController = async (req, res) => {
  */
 export const productPhotoController = async (req, res) => {
 	try {
+		let id = req.params.pid;
+		if (!mongoose.Types.ObjectId.isValid(id)) {
+			res.status(StatusCodes.BAD_REQUEST).send();
+			return;
+		}
+
 		let product = await productModel
-			.findById(req.params.pid)
+			.findById(id)
 			.select("photo");
 		if (!product) {
 			res.status(StatusCodes.NOT_FOUND).send();

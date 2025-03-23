@@ -13,13 +13,13 @@ const Policy = () => {
           />
         </div>
         <div className="col-md-4">
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
-          <p>add privacy policy</p>
+          <p>First Policy: </p>
+          <p>Second Policy: </p>
+          <p>Third Policy: </p>
+          <p>Fourth Policy: </p>
+          <p>Fifth Policy: </p>
+          <p>Sixth Policy: </p>
+          <p>Seventh Policy: </p>
         </div>
       </div>
     </Layout>

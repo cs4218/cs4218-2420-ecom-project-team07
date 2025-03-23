@@ -1,4 +1,4 @@
-projectKey=econ
+projectKey=econ-zhenxu
 serverUrl=http://localhost:9000
 serverVersion=25.2.0.102705
 dashboardUrl=http://localhost:9000/dashboard?id=econ

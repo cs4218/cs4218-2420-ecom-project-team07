@@ -5,7 +5,7 @@ import connectDB from "../config/db.js";
 import productModel from "../models/productModel.js";
 import { mockRequest, mockResponse } from "../test-utils/mocks.js";
 import { getSampleProducts } from "../test-utils/utils.js";
-import { getProductController } from "./productController.js";
+import { getProductController, getSingleProductController } from "./productController.js";
 
 
 
@@ -33,6 +33,7 @@ afterAll(async () => {
 });
 
 describe("product controller + product model + slugify integration tests", () => {
+	// getProductController
 	it("should successfully get all products", async () => {
 		let req = mockRequest();
 		let res = mockResponse();
@@ -44,51 +45,37 @@ describe("product controller + product model + slugify integration tests", () =>
 		});
 		expect(res.send.mock.calls[0][0].products).toHaveLength(SAMPLE_PRODUCTS.length);
 	});
+
+	// getSingleProductController
+	it("should successfully get the specified product", async () => {
+		let slug = SAMPLE_PRODUCTS[0].slug;
+		let req = mockRequest(
+			undefined,
+			{ slug },
+		);
+		let res = mockResponse();
+		await getSingleProductController(req, res);
+
+		expect(res.status).toBeCalledWith(StatusCodes.OK);
+		expect(res.send).toBeCalledWith({
+			product: expect.objectContaining(
+				{ slug }
+			)
+		});
+	});
+
+	it("should fail to find the non-existent product", async () => {
+		let slug = "my-product-slug-no-such-product";
+		let req = mockRequest(
+			undefined,
+			{ slug },
+		);
+		let res = mockResponse();
+		await getSingleProductController(req, res);
+
+		expect(res.status).toBeCalledWith(StatusCodes.NOT_FOUND);
+	});
 });
-
-// describe("getSingleProductController tests", () => {
-// 	it("should successfully get a specific product", async () => {
-// 		let slug = "my-product-slug-name-success";
-// 		let req = mockRequest(
-// 			undefined,
-// 			{ slug },
-// 		);
-// 		let res = mockResponse();
-// 		await getSingleProductController(req, res);
-
-// 		expect(productModel.findOne).toBeCalledWith(
-// 			{ slug }
-// 		);
-
-// 		expect(res.status).toBeCalledWith(StatusCodes.OK);
-// 		expect(res.send).toBeCalledWith(
-// 			{ product: expect.anything() }
-// 		);
-// 	});
-
-// 	it("should error when the model errors", async () => {
-// 		productModel.findOne.mockImplementationOnce(() => {
-// 			throw new Error();
-// 		});
-
-// 		let slug = "my-product-slug-name-error";
-// 		let req = mockRequest(
-// 			undefined,
-// 			{ slug },
-// 		);
-// 		let res = mockResponse();
-// 		await getSingleProductController(req, res);
-
-// 		expect(productModel.findOne).toBeCalledWith(
-// 			{ slug }
-// 		);
-
-// 		expect(res.status).toBeCalledWith(StatusCodes.INTERNAL_SERVER_ERROR);
-// 		expect(res.send).toBeCalledWith(
-// 			{ message: expect.anything() }
-// 		);
-// 	});
-// });
 
 // describe("productPhotoController tests", () => {
 // 	it("should get the specified product's photo", async () => {

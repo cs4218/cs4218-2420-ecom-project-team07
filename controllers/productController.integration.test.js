@@ -32,7 +32,7 @@ afterAll(async () => {
 	await mongoose.connection.close();
 });
 
-describe("product controller + product model integration tests", () => {
+describe("product controller + product model + slugify integration tests", () => {
 	it("should successfully get all products", async () => {
 		let req = mockRequest();
 		let res = mockResponse();

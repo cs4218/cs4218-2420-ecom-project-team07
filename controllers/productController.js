@@ -6,7 +6,7 @@ import braintree from "braintree";
 import dotenv from "dotenv";
 import fs from "fs";
 import StatusCodes from "http-status-codes";
-import slugify from "slugify";
+import { toLowerSlug } from "../helpers/utils.js";
 
 dotenv.config();
 
@@ -41,7 +41,7 @@ export const createProductController = async (req, res) => {
 					.send({ error: "Photo is Required and should be less then 1mb" });
 		}
 
-		const products = new productModel({ ...req.fields, slug: slugify(name) });
+		const products = new productModel({ ...req.fields, slug: toLowerSlug(name) });
 		if (photo) {
 			products.photo.data = fs.readFileSync(photo.path);
 			products.photo.contentType = photo.type;
@@ -94,9 +94,15 @@ export const getSingleProductController = async (req, res) => {
 			.findOne({ slug: req.params.slug })
 			.select("-photo")
 			.populate("category");
-			res.status(StatusCodes.OK).send({
-				product,
-			});
+
+		if (!product) {
+			res.status(StatusCodes.NOT_FOUND).send();
+			return;
+		}
+
+		res.status(StatusCodes.OK).send({
+			product,
+		});
 	} catch (error) {
 		console.error(error);
 		res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({
@@ -117,11 +123,13 @@ export const productPhotoController = async (req, res) => {
 			.select("photo");
 		if (!product) {
 			res.status(StatusCodes.NOT_FOUND).send();
+			return;
 		}
 
 		let { photo } = product;
 		if (!photo.contentType || !photo.data) {
 			res.status(StatusCodes.NO_CONTENT).send();
+			return;
 		}
 
 		res.set("Content-Type", photo.contentType);
@@ -178,7 +186,7 @@ export const updateProductController = async (req, res) => {
 
 		const products = await productModel.findByIdAndUpdate(
 			req.params.pid,
-			{ ...req.fields, slug: slugify(name) },
+			{ ...req.fields, slug: toLowerSlug(name) },
 			{ new: true }
 		);
 		if (photo) {

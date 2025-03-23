@@ -107,9 +107,6 @@ test.describe('Categories Functionality Tests', () => {
     
     // Click the Delete button within that specific row
     await row.getByRole('button', { name: 'Delete' }).click();
-    
-    // Confirm deletion in the modal
-    await row.getByRole('button', { name: 'Delete' }).click();
 
     // Verify the category is removed from the list
     await expect(page.getByRole('cell', { name: categoryName })).not.toBeVisible({ timeout: 5000 });

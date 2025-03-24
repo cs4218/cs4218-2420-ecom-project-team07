@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Checkbox, Radio } from "antd";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { AiOutlineReload } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import { Prices } from "../components/Prices";
 import { useCart } from "../context/cart";
-import axios from "axios";
-import toast from "react-hot-toast";
-import Layout from "./../components/Layout";
-import { AiOutlineReload } from "react-icons/ai";
 import "../styles/Homepages.css";
+import Layout from "./../components/Layout";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -107,7 +107,7 @@ const HomePage = () => {
     }
   };
   return (
-    <Layout title={"ALL Products - Best offers "}>
+    <Layout title={"Virtual Vault - All Products"}>
       {/* banner image */}
       <img
         src="/images/Virtual.png"

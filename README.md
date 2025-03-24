@@ -40,7 +40,7 @@ Import sample data:
 
 ### Running a Specific Test Suite (File)
 
-1. Run `npm test -- [File Name]`, e.g. `npm test -- productController` to run only the tests in `controllers/productController.test.js`
+1. Run `npm test -- [File Name to Match]`, e.g. run `npm test -- productController` to run only the tests in both `controllers/productController.test.js` and `controllers/productController.integration.test.js`
 
 <https://stackoverflow.com/a/28775887/11536796>
 

@@ -6,4 +6,6 @@ node_modules
 
 /.env
 /coverage/
+/playwright-report/
+/.scannerwork/
 .DS_Store

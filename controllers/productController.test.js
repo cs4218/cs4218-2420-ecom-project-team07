@@ -32,6 +32,7 @@ describe("getProductController tests", () => {
 
 		expect(res.status).toBeCalledWith(StatusCodes.OK);
 		expect(res.send).toBeCalledWith(
+			//TODO could improve .anything()s here and below, e.g. expect.any(Array)
 			{ products: expect.anything() }
 		);
 	});

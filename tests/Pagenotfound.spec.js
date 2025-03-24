@@ -4,8 +4,9 @@ import { loginAdmin, loginUser } from "../test-utils/playwright.js";
 
 
 async function verifyPageText(page) {
+	await expect(page.getByText("404")).toBeVisible();
 	await expect(page.getByText("Oops! Page Not Found")).toBeVisible();
-	await expect(page.getByText("Go Back")).toBeVisible();
+	await expect(page.getByText("Return to Homepage")).toBeVisible();
 }
 
 test.describe('404 page tests', () => {

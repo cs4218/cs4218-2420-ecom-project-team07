@@ -17,11 +17,10 @@ describe("Pagenotfound Component", () => {
             </MemoryRouter>
         );
 
-        expect(getByText("Go Back")).toBeInTheDocument();
         expect(getByText("404")).toBeInTheDocument();
         expect(getByText("Oops! Page Not Found")).toBeInTheDocument();
 
-        const goBackLink = getByRole("link", { name: "Go Back" });
+        const goBackLink = getByRole("link", { name: "Return to Homepage" });
         expect(goBackLink).toHaveAttribute("href", "/");
     });
 });

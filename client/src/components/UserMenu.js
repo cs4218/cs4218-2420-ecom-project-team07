@@ -18,7 +18,7 @@ const UserMenu = () => {
             className="list-group-item list-group-item-action"
           >
             Orders
-          </NavLink>         
+          </NavLink>
         </div>
       </div>
     </div>
